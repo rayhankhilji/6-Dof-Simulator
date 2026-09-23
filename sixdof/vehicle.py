@@ -174,8 +174,17 @@ class VehicleConfig:
     stages: List[StageConfig]
     payload_mass: float = 0.0
 
-    def _stage_base(self, stage_index: int) -> float:
+    def stage_base(self, stage_index: int) -> float:
+        """x_B position of the base of ``stage_index`` in the stacked vehicle [m]."""
         return sum(s.length for s in self.stages[:stage_index])
+
+    def _dry_mass_at_or_below(self, stage_index: int) -> float:
+        """Dry mass of active stage plus all stages/payload above it [kg]."""
+        m = self.payload_mass
+        for j in range(stage_index, len(self.stages)):
+            s = self.stages[j]
+            m += s.dry_mass + (0.0 if j == stage_index else s.prop_mass)
+        return m
 
     def stages_above_mass(self, stage_index: int, prop_remaining: float) -> float:
         """Mass [kg] of all stages above ``stage_index`` plus payload."""
@@ -197,7 +206,7 @@ class VehicleConfig:
         comps = []
         for j in range(stage_index, len(self.stages)):
             s = self.stages[j]
-            base = self._stage_base(j)
+            base = self.stage_base(j)
             r = s.diameter / 2.0
             comps.append((s.dry_mass, base + s.cg_offset_from_base_dry, r, s.length))
             m_prop = prop_remaining if j == stage_index else s.prop_mass
@@ -275,11 +284,25 @@ class Vehicle:
         self.active_stage += 1
         self.prop_remaining = self.active_stage_config.prop_mass
 
-    def mass_properties(self) -> tuple[float, float, np.ndarray]:
-        """Return ``(m_total, cg_x, J)`` for the current stack state."""
-        m = self.config.total_mass(self.active_stage, self.prop_remaining)
-        cg = self.config.cg_position(self.active_stage, self.prop_remaining)
-        J = self.config.inertia_tensor(self.active_stage, self.prop_remaining)
+    def mass_properties(
+        self, total_mass: float | None = None
+    ) -> tuple[float, float, np.ndarray]:
+        """Return ``(m_total, cg_x, J)`` for the current stack state.
+
+        If ``total_mass`` is given (e.g. the integrated state mass), the
+        propellant remaining is derived as
+        ``clip(total_mass - dry_stack_mass, 0, prop_mass)`` so CG and inertia
+        stay consistent with the integrated mass during propagation.
+        """
+        if total_mass is None:
+            prop = self.prop_remaining
+            m = self.config.total_mass(self.active_stage, prop)
+        else:
+            dry = self.config._dry_mass_at_or_below(self.active_stage)
+            prop = float(np.clip(total_mass - dry, 0.0, self.active_stage_config.prop_mass))
+            m = float(total_mass)
+        cg = self.config.cg_position(self.active_stage, prop)
+        J = self.config.inertia_tensor(self.active_stage, prop)
         return m, cg, J
 
 

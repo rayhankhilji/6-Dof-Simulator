@@ -70,20 +70,25 @@ class RigidBodyDynamics:
         """State derivative ``xdot`` for control ``u``.
 
         ``u`` keys: ``throttle`` in [0,1] (post-actuator commanded value),
-        ``gimbal`` = (delta_y, delta_z) [rad].
+        ``gimbal`` = (delta_y, delta_z) [rad]. Throttle handling lives in
+        ``EngineConfig.thrust_and_mdot``: 0 = engine off; any nonzero command
+        below ``thrust_min_frac`` is clamped up to the throttleable floor.
         """
         s = State.from_array(x)
         veh = self.vehicle
         stage = veh.active_stage_config
 
-        m_model, cg_x, J = veh.mass_properties()
-        m = s.m  # state mass is authoritative during integration
+        # State mass is authoritative; prop_remaining (and hence CG/J) is
+        # derived from it so mass properties track the integrated mass.
+        m, cg_x, J = veh.mass_properties(s.m)
 
         # --- Thrust ---
         throttle = float(u.get("throttle", 0.0))
         gimbal = np.asarray(u.get("gimbal", (0.0, 0.0)), dtype=float)
         _, p_amb, _, _ = self.atmosphere.properties(s.r_I[2])
-        if veh.prop_remaining <= 0.0 or throttle <= 0.0:
+        dry = veh.config._dry_mass_at_or_below(veh.active_stage)
+        prop = s.m - dry
+        if prop <= 0.0 or throttle <= 0.0:
             thrust_mag, mdot = 0.0, 0.0
         else:
             thrust_mag, mdot = stage.engine.thrust_and_mdot(throttle, float(p_amb))
@@ -102,7 +107,7 @@ class RigidBodyDynamics:
         F_I = quat_rotate(s.q, F_B) + m * g_I
 
         # Moments about the CG.
-        r_gimbal = np.array([stage.gimbal_point + self.vehicle.config._stage_base(veh.active_stage) - cg_x, 0.0, 0.0])
+        r_gimbal = np.array([stage.gimbal_point + veh.config.stage_base(veh.active_stage) - cg_x, 0.0, 0.0])
         M_B = np.cross(r_gimbal, F_thrust_B) + M_aero_B
 
         xdot = np.zeros(14)
