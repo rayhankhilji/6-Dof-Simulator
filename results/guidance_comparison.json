@@ -1,0 +1,3903 @@
+{
+  "mode": "dispersed_mc",
+  "controller": "mpc",
+  "nav": "ekf",
+  "seeds": [
+    100,
+    101,
+    102,
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119
+  ],
+  "dt": 0.01,
+  "control_hz": 50.0,
+  "dispersion_spec": {
+    "wind_speed": "U(0,12) m/s",
+    "gust_sigma": 1.5,
+    "density_scale": "U(-0.10,0.10)",
+    "thrust_scale": "U(0.97,1.03)",
+    "mass_offset": "U(-3%,3%) x 37000 kg",
+    "pos_offset": "U(-50,50) m/axis",
+    "vel_offset": "U(-5,5) m/s/axis",
+    "meas_delay": 0.1,
+    "gps_outage": "10 s window at U(10,18) s on even-indexed seeds"
+  },
+  "guidance": {
+    "zemzev": {
+      "n": 20,
+      "successes": 18,
+      "success_rate": 0.9,
+      "wilson95": [
+        0.6989617935882066,
+        0.9721341060158468
+      ],
+      "vs_p50": 1.6719681376157107,
+      "vs_p95": 1.893430563231481,
+      "lateral_speed_p95": 1.6889020470624594,
+      "tilt_p95": 1.999496851071989,
+      "offset_p50": 3.0396393981296157,
+      "offset_p95": 5.68533159507087,
+      "fuel_used_mean": 6687.6538290608105,
+      "fuel_used_std": 215.73418551928907,
+      "control_effort_mean": 0.06952583150216594,
+      "compute_time_ms_mean": 6.662165333605932,
+      "compute_time_ms_p95": 28.882483534921413,
+      "failure_modes": {
+        "success": 18,
+        "lateral_velocity": 2
+      },
+      "runs": [
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 104,
+          "dispersions": {
+            "wind_speed": 10.062777748434428,
+            "wind_dir": 4.348895077846899,
+            "gust_sigma": 1.5,
+            "density_scale": -0.05678223435463508,
+            "thrust_scale": 0.9775247138764565,
+            "mass_offset": -277.3461780748628,
+            "pos_offset": [
+              25.388851812558883,
+              23.51879615584447,
+              -8.711051745948282
+            ],
+            "vel_offset": [
+              1.4493136945497733,
+              3.2420529965544134,
+              -4.337173399117654
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                14.306377895870972,
+                24.306377895870973
+              ]
+            ]
+          },
+          "initial_pos": [
+            -374.61114818744113,
+            223.51879615584448,
+            2991.288948254052
+          ],
+          "initial_vel": [
+            31.449313694549772,
+            -11.757947003445587,
+            -184.33717339911766
+          ],
+          "initial_lateral_offset": 436.2271937663572,
+          "t_end": 30.26000000000193,
+          "fuel_used_kg": 6353.031057977092,
+          "fallback_count": 0,
+          "vertical_speed": 1.9362669237183856,
+          "lateral_speed": 0.6967658045877398,
+          "tilt_angle_deg": 1.0295078622390998,
+          "lateral_offset": 3.1145391249312824,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.047102318094573936,
+          "rms_lateral_offset": 183.8566032432798,
+          "compute_time_mean_ms": 8.988144985455689,
+          "compute_time_max_ms": 298.05793100013034,
+          "prop_remaining_kg": 3646.9689420229074,
+          "compute_time_p95_ms": 26.344227750200844,
+          "events": [
+            [
+              30.26000000000193,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 80.44940859799999
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 100,
+          "dispersions": {
+            "wind_speed": 10.019779566024107,
+            "wind_dir": 3.748259497183444,
+            "gust_sigma": 1.5,
+            "density_scale": -0.04222735166175928,
+            "thrust_scale": 0.9725770942416526,
+            "mass_offset": 1051.5127571357955,
+            "pos_offset": [
+              9.647170406468838,
+              29.026316441872126,
+              41.03393812954528
+            ],
+            "vel_offset": [
+              1.881544475917451,
+              -3.1000852661227682,
+              4.814789806272664
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                12.277920400141188,
+                22.277920400141188
+              ]
+            ]
+          },
+          "initial_pos": [
+            -390.35282959353117,
+            229.02631644187213,
+            3041.0339381295453
+          ],
+          "initial_vel": [
+            31.88154447591745,
+            -18.10008526612277,
+            -175.18521019372733
+          ],
+          "initial_lateral_offset": 452.5797003784073,
+          "t_end": 31.370000000002104,
+          "fuel_used_kg": 6604.402617411592,
+          "fallback_count": 0,
+          "vertical_speed": 1.8911760179426964,
+          "lateral_speed": 1.1825351544526566,
+          "tilt_angle_deg": 1.2171591026211122,
+          "lateral_offset": 3.6527347956601557,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 7.0973867838790765,
+          "control_effort": 0.05756215932917978,
+          "rms_lateral_offset": 190.67808259814785,
+          "compute_time_mean_ms": 9.587935934644872,
+          "compute_time_max_ms": 171.85944699986067,
+          "prop_remaining_kg": 3395.5973825884084,
+          "compute_time_p95_ms": 29.494763000002422,
+          "events": [
+            [
+              31.370000000002104,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 82.51278288999993
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 102,
+          "dispersions": {
+            "wind_speed": 1.919893740051644,
+            "wind_dir": 3.68159168328128,
+            "gust_sigma": 1.5,
+            "density_scale": 0.06476735543656928,
+            "thrust_scale": 0.9878356142056177,
+            "mass_offset": 410.4769378327905,
+            "pos_offset": [
+              -3.6115839694017,
+              39.135742987238714,
+              6.487326202975808
+            ],
+            "vel_offset": [
+              4.931919916088924,
+              -2.5747843993509365,
+              -3.9070373956066398
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                12.764399369111356,
+                22.764399369111356
+              ]
+            ]
+          },
+          "initial_pos": [
+            -403.6115839694017,
+            239.1357429872387,
+            3006.487326202976
+          ],
+          "initial_vel": [
+            34.93191991608892,
+            -17.574784399350936,
+            -183.90703739560664
+          ],
+          "initial_lateral_offset": 469.13560330500184,
+          "t_end": 31.770000000002167,
+          "fuel_used_kg": 6828.727463310259,
+          "fallback_count": 0,
+          "vertical_speed": 1.637746525619023,
+          "lateral_speed": 0.7611933164868465,
+          "tilt_angle_deg": 1.8391718528231658,
+          "lateral_offset": 2.5267321805115808,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.05268934361404527,
+          "rms_lateral_offset": 190.68967868178413,
+          "compute_time_mean_ms": 9.626340722071971,
+          "compute_time_max_ms": 203.3744380000826,
+          "prop_remaining_kg": 3171.2725366897407,
+          "compute_time_p95_ms": 28.223608200369146,
+          "events": [
+            [
+              31.770000000002167,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 83.45657011100002
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 101,
+          "dispersions": {
+            "wind_speed": 11.322390067326648,
+            "wind_dir": 2.2583089557830767,
+            "gust_sigma": 1.5,
+            "density_scale": 0.056961082393995416,
+            "thrust_scale": 1.0054766911137647,
+            "mass_offset": -456.59059414281944,
+            "pos_offset": [
+              42.27256864229143,
+              36.93315446785694,
+              -13.586157370947717
+            ],
+            "vel_offset": [
+              4.731768146328939,
+              -2.7547566926486877,
+              3.0549586792812207
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -357.72743135770855,
+            236.93315446785692,
+            2986.4138426290524
+          ],
+          "initial_vel": [
+            34.73176814632894,
+            -17.754756692648687,
+            -176.9450413207188
+          ],
+          "initial_lateral_offset": 429.0760245362976,
+          "t_end": 32.67000000000207,
+          "fuel_used_kg": 6711.368251918809,
+          "fallback_count": 0,
+          "vertical_speed": 1.6245641057410436,
+          "lateral_speed": 1.100222645383105,
+          "tilt_angle_deg": 0.2727980315687151,
+          "lateral_offset": 4.691105138808995,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.10576777592425955,
+          "rms_lateral_offset": 177.82533227620857,
+          "compute_time_mean_ms": 9.578292486377986,
+          "compute_time_max_ms": 274.66584400008287,
+          "prop_remaining_kg": 3288.6317480811913,
+          "compute_time_p95_ms": 28.850258299917147,
+          "events": [
+            [
+              32.67000000000207,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 85.16425587999993
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 103,
+          "dispersions": {
+            "wind_speed": 3.75219879267537,
+            "wind_dir": 1.4094329605366218,
+            "gust_sigma": 1.5,
+            "density_scale": -0.06359805438113897,
+            "thrust_scale": 1.021610718735606,
+            "mass_offset": 793.7443242044203,
+            "pos_offset": [
+              -39.643756641952635,
+              -21.091016286576036,
+              16.15717391462897
+            ],
+            "vel_offset": [
+              2.0129576362924126,
+              -0.6131999688044685,
+              -0.18593396257855765
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -439.6437566419526,
+            178.90898371342396,
+            3016.157173914629
+          ],
+          "initial_vel": [
+            32.01295763629241,
+            -15.61319996880447,
+            -180.18593396257856
+          ],
+          "initial_lateral_offset": 474.6525647330041,
+          "t_end": 33.69000000000187,
+          "fuel_used_kg": 6975.730776119439,
+          "fallback_count": 0,
+          "vertical_speed": 1.492529836532146,
+          "lateral_speed": 0.30790369863010847,
+          "tilt_angle_deg": 0.9836222797614904,
+          "lateral_offset": 2.2416828823534547,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.04090427311572111,
+          "rms_lateral_offset": 196.8136122719358,
+          "compute_time_mean_ms": 9.298067253788975,
+          "compute_time_max_ms": 287.47476600028676,
+          "prop_remaining_kg": 3024.2692238805607,
+          "compute_time_p95_ms": 26.320180999846343,
+          "events": [
+            [
+              33.69000000000187,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 86.68870558799972
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 105,
+          "dispersions": {
+            "wind_speed": 7.658344003218534,
+            "wind_dir": 6.229525493963413,
+            "gust_sigma": 1.5,
+            "density_scale": -0.08065410891067526,
+            "thrust_scale": 1.0004022605061853,
+            "mass_offset": -229.905527707839,
+            "pos_offset": [
+              -29.3983763953355,
+              38.33688233707825,
+              4.048287988329072
+            ],
+            "vel_offset": [
+              1.1220446055837465,
+              -2.146384124079624,
+              0.5605902322153291
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -429.3983763953355,
+            238.33688233707824,
+            3004.048287988329
+          ],
+          "initial_vel": [
+            31.122044605583746,
+            -17.146384124079624,
+            -179.43940976778467
+          ],
+          "initial_lateral_offset": 491.1083741223606,
+          "t_end": 31.320000000002096,
+          "fuel_used_kg": 6433.233576902219,
+          "fallback_count": 0,
+          "vertical_speed": 1.6768520921629897,
+          "lateral_speed": 0.2334290728639251,
+          "tilt_angle_deg": 0.8373773659294198,
+          "lateral_offset": 1.1804360957780904,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.049496416389301794,
+          "rms_lateral_offset": 200.03836253209715,
+          "compute_time_mean_ms": 6.878785722220803,
+          "compute_time_max_ms": 138.02742999996553,
+          "prop_remaining_kg": 3566.7664230977807,
+          "compute_time_p95_ms": 17.44002499981434,
+          "events": [
+            [
+              31.320000000002096,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 55.24502667999968
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 106,
+          "dispersions": {
+            "wind_speed": 11.788894265560028,
+            "wind_dir": 0.25384164706923557,
+            "gust_sigma": 1.5,
+            "density_scale": -0.07544266203381284,
+            "thrust_scale": 0.9978559277876479,
+            "mass_offset": 1031.061894018843,
+            "pos_offset": [
+              -36.12006862558136,
+              -17.439481869883657,
+              -30.829225521098756
+            ],
+            "vel_offset": [
+              -1.7835667480125297,
+              -4.447522536534479,
+              1.3591484771254647
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                10.54864568494224,
+                20.54864568494224
+              ]
+            ]
+          },
+          "initial_pos": [
+            -436.1200686255814,
+            182.56051813011635,
+            2969.1707744789014
+          ],
+          "initial_vel": [
+            28.21643325198747,
+            -19.44752253653448,
+            -178.64085152287453
+          ],
+          "initial_lateral_offset": 472.78859656078674,
+          "t_end": 32.0100000000022,
+          "fuel_used_kg": 6741.915059651825,
+          "fallback_count": 0,
+          "vertical_speed": 1.630084889424897,
+          "lateral_speed": 0.26881533979406813,
+          "tilt_angle_deg": 0.7120905044608452,
+          "lateral_offset": 2.1700290684976054,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.04472076304777442,
+          "rms_lateral_offset": 192.11695569394703,
+          "compute_time_mean_ms": 6.944308459230005,
+          "compute_time_max_ms": 174.13643500003673,
+          "prop_remaining_kg": 3258.0849403481757,
+          "compute_time_p95_ms": 18.818089999967924,
+          "events": [
+            [
+              32.0100000000022,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 55.21602497399999
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 108,
+          "dispersions": {
+            "wind_speed": 10.27192580794314,
+            "wind_dir": 3.9727019656844296,
+            "gust_sigma": 1.5,
+            "density_scale": -0.07641888860807185,
+            "thrust_scale": 0.9910379611706085,
+            "mass_offset": -576.9582632506351,
+            "pos_offset": [
+              -42.41644884865817,
+              -2.352698239088866,
+              39.38003173443629
+            ],
+            "vel_offset": [
+              -0.5873657080786563,
+              1.1823308584991654,
+              0.32715882338734037
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                14.438217914455793,
+                24.43821791445579
+              ]
+            ]
+          },
+          "initial_pos": [
+            -442.41644884865815,
+            197.64730176091115,
+            3039.380031734436
+          ],
+          "initial_vel": [
+            29.412634291921343,
+            -13.817669141500835,
+            -179.67284117661265
+          ],
+          "initial_lateral_offset": 484.5583247713592,
+          "t_end": 31.500000000002125,
+          "fuel_used_kg": 6391.388014047779,
+          "fallback_count": 0,
+          "vertical_speed": 1.7724848529734503,
+          "lateral_speed": 1.618279525415625,
+          "tilt_angle_deg": 1.973400117252911,
+          "lateral_offset": 3.636425606428979,
+          "success": false,
+          "failure_mode": "lateral_velocity",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.06018910635014826,
+          "rms_lateral_offset": 221.808988437339,
+          "compute_time_mean_ms": 6.712951431746617,
+          "compute_time_max_ms": 199.17049700006828,
+          "prop_remaining_kg": 3608.6119859522214,
+          "compute_time_p95_ms": 17.07652020008936,
+          "events": [
+            [
+              31.500000000002125,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 53.84163500500017
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 107,
+          "dispersions": {
+            "wind_speed": 7.7824310328030935,
+            "wind_dir": 3.0014058001707737,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0005474763838493046,
+            "thrust_scale": 1.0140870331221297,
+            "mass_offset": -19.59531980932419,
+            "pos_offset": [
+              -42.34670387989369,
+              -8.439658977182255,
+              48.957719098854994
+            ],
+            "vel_offset": [
+              -3.3279320085566533,
+              3.165777412765104,
+              -2.706470246620525
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -442.3467038798937,
+            191.56034102281774,
+            3048.957719098855
+          ],
+          "initial_vel": [
+            26.672067991443345,
+            -11.834222587234896,
+            -182.7064702466205
+          ],
+          "initial_lateral_offset": 482.0435360900347,
+          "t_end": 33.36000000000193,
+          "fuel_used_kg": 6959.981754414008,
+          "fallback_count": 0,
+          "vertical_speed": 1.6609012150048588,
+          "lateral_speed": 3.0307299583522944,
+          "tilt_angle_deg": 2.495334793634463,
+          "lateral_offset": 7.166335205730145,
+          "success": false,
+          "failure_mode": "lateral_velocity",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.29160038282479234,
+          "rms_lateral_offset": 235.07079545220452,
+          "compute_time_mean_ms": 6.833420995808225,
+          "compute_time_max_ms": 143.07570499977373,
+          "prop_remaining_kg": 3040.018245585992,
+          "compute_time_p95_ms": 17.825417000040034,
+          "events": [
+            [
+              33.36000000000193,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 56.46426868399976
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 109,
+          "dispersions": {
+            "wind_speed": 6.524906987013351,
+            "wind_dir": 5.28672769587761,
+            "gust_sigma": 1.5,
+            "density_scale": 0.05001521512888743,
+            "thrust_scale": 0.9898981256764824,
+            "mass_offset": 220.34192514999148,
+            "pos_offset": [
+              -30.549876275186982,
+              -34.8557112759007,
+              0.3886259951500577
+            ],
+            "vel_offset": [
+              0.4263469379909388,
+              4.994093803265265,
+              4.838589035135106
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -430.549876275187,
+            165.14428872409928,
+            3000.38862599515
+          ],
+          "initial_vel": [
+            30.42634693799094,
+            -10.005906196734735,
+            -175.1614109648649
+          ],
+          "initial_lateral_offset": 461.135372812331,
+          "t_end": 31.640000000002146,
+          "fuel_used_kg": 6646.895248409814,
+          "fallback_count": 0,
+          "vertical_speed": 1.606030958542576,
+          "lateral_speed": 0.14437624746195282,
+          "tilt_angle_deg": 1.1690104741197815,
+          "lateral_offset": 1.3854020194485048,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.026383928452010003,
+          "rms_lateral_offset": 192.33913122808636,
+          "compute_time_mean_ms": 6.702535234511013,
+          "compute_time_max_ms": 162.6567220000652,
+          "prop_remaining_kg": 3353.1047515901864,
+          "compute_time_p95_ms": 16.826963999847067,
+          "events": [
+            [
+              31.640000000002146,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 53.407362860000376
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 110,
+          "dispersions": {
+            "wind_speed": 11.165913738123601,
+            "wind_dir": 3.2197415378935696,
+            "gust_sigma": 1.5,
+            "density_scale": 0.04250466610447978,
+            "thrust_scale": 1.0001334298080826,
+            "mass_offset": -577.532760631855,
+            "pos_offset": [
+              37.635468021920076,
+              -43.11992945416997,
+              20.262626384354974
+            ],
+            "vel_offset": [
+              -4.020995088104451,
+              -0.5432085018130328,
+              0.2465743067950923
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                12.118083651832361,
+                22.11808365183236
+              ]
+            ]
+          },
+          "initial_pos": [
+            -362.3645319780799,
+            156.88007054583002,
+            3020.262626384355
+          ],
+          "initial_vel": [
+            25.97900491189555,
+            -15.543208501813034,
+            -179.75342569320492
+          ],
+          "initial_lateral_offset": 394.86631987314075,
+          "t_end": 32.63000000000208,
+          "fuel_used_kg": 6674.263756210372,
+          "fallback_count": 0,
+          "vertical_speed": 1.8701407999783366,
+          "lateral_speed": 1.2428361643020223,
+          "tilt_angle_deg": 0.7756974485697218,
+          "lateral_offset": 4.878814746073373,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.13121366037558815,
+          "rms_lateral_offset": 182.46547805371824,
+          "compute_time_mean_ms": 4.925240921240116,
+          "compute_time_max_ms": 91.68030499995439,
+          "prop_remaining_kg": 3325.7362437896277,
+          "compute_time_p95_ms": 10.087485799795088,
+          "events": [
+            [
+              32.63000000000208,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 38.88567137900009
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 112,
+          "dispersions": {
+            "wind_speed": 1.3975081560918645,
+            "wind_dir": 5.303973326787137,
+            "gust_sigma": 1.5,
+            "density_scale": 0.05973468486493133,
+            "thrust_scale": 0.9710437969178297,
+            "mass_offset": -939.178284930658,
+            "pos_offset": [
+              -0.35436542013454186,
+              32.70988132606887,
+              -23.81011551428559
+            ],
+            "vel_offset": [
+              -1.8710694601983926,
+              2.2240675466882465,
+              -4.50572848989308
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                16.575779561123674,
+                26.575779561123674
+              ]
+            ]
+          },
+          "initial_pos": [
+            -400.3543654201345,
+            232.70988132606885,
+            2976.1898844857146
+          ],
+          "initial_vel": [
+            28.12893053980161,
+            -12.775932453311754,
+            -184.50572848989307
+          ],
+          "initial_lateral_offset": 463.07397549176915,
+          "t_end": 29.960000000001884,
+          "fuel_used_kg": 6328.461310912414,
+          "fallback_count": 0,
+          "vertical_speed": 1.7266832902814302,
+          "lateral_speed": 1.1900778742302371,
+          "tilt_angle_deg": 0.910455449384573,
+          "lateral_offset": 1.6687982975319076,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.05536074926852572,
+          "rms_lateral_offset": 209.8199538180822,
+          "compute_time_mean_ms": 5.00055716221743,
+          "compute_time_max_ms": 89.04101200005243,
+          "prop_remaining_kg": 3671.538689087586,
+          "compute_time_p95_ms": 9.899114499944517,
+          "events": [
+            [
+              29.960000000001884,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 36.349496416999955
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 111,
+          "dispersions": {
+            "wind_speed": 1.8439362714279945,
+            "wind_dir": 1.0637640130423889,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0011928628996531188,
+            "thrust_scale": 1.009487132407225,
+            "mass_offset": 594.0295469939582,
+            "pos_offset": [
+              -39.07725411191446,
+              29.759652636523427,
+              46.87459069451401
+            ],
+            "vel_offset": [
+              -2.5305066394368767,
+              -3.0248617089935204,
+              -1.6172446393154938
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -439.07725411191444,
+            229.7596526365234,
+            3046.874590694514
+          ],
+          "initial_vel": [
+            27.469493360563124,
+            -18.02486170899352,
+            -181.6172446393155
+          ],
+          "initial_lateral_offset": 495.55860708710793,
+          "t_end": 33.390000000001926,
+          "fuel_used_kg": 6980.813401396277,
+          "fallback_count": 0,
+          "vertical_speed": 1.6670841830684318,
+          "lateral_speed": 0.45957400847476954,
+          "tilt_angle_deg": 1.107242819403973,
+          "lateral_offset": 3.1844259812144573,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 7.968374797924952,
+          "control_effort": 0.03405155487664051,
+          "rms_lateral_offset": 218.6622698451639,
+          "compute_time_mean_ms": 4.9717558283834835,
+          "compute_time_max_ms": 90.92434900003354,
+          "prop_remaining_kg": 3019.1865986037224,
+          "compute_time_p95_ms": 10.040794999895297,
+          "events": [
+            [
+              33.390000000001926,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 39.9153276269999
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 113,
+          "dispersions": {
+            "wind_speed": 0.8469372753667006,
+            "wind_dir": 0.9479375692569203,
+            "gust_sigma": 1.5,
+            "density_scale": -0.07104744842395352,
+            "thrust_scale": 1.0066296021557029,
+            "mass_offset": -89.8357861598978,
+            "pos_offset": [
+              49.88557098018387,
+              -0.32705008150962556,
+              -32.95412086414695
+            ],
+            "vel_offset": [
+              -4.547734283078258,
+              2.093158691816363,
+              -0.11741340783181009
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -350.11442901981616,
+            199.67294991849036,
+            2967.045879135853
+          ],
+          "initial_vel": [
+            25.452265716921744,
+            -12.906841308183637,
+            -180.1174134078318
+          ],
+          "initial_lateral_offset": 403.05012137080894,
+          "t_end": 31.72000000000216,
+          "fuel_used_kg": 6528.556014339785,
+          "fallback_count": 0,
+          "vertical_speed": 1.6899445794151977,
+          "lateral_speed": 0.34036371240853996,
+          "tilt_angle_deg": 0.788079444377478,
+          "lateral_offset": 1.5453589160694405,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.03694325354719815,
+          "rms_lateral_offset": 170.44570979862303,
+          "compute_time_mean_ms": 4.8489228209375765,
+          "compute_time_max_ms": 76.97223400009534,
+          "prop_remaining_kg": 3471.443985660215,
+          "compute_time_p95_ms": 9.64695800030313,
+          "events": [
+            [
+              31.72000000000216,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 38.08128344800025
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 114,
+          "dispersions": {
+            "wind_speed": 8.734659294116224,
+            "wind_dir": 0.8932120760217,
+            "gust_sigma": 1.5,
+            "density_scale": -0.013323154855990157,
+            "thrust_scale": 1.0122467308922016,
+            "mass_offset": 240.43632099580427,
+            "pos_offset": [
+              14.529628780998365,
+              -6.507522737746655,
+              1.3406937327882886
+            ],
+            "vel_offset": [
+              3.9256111952047696,
+              -3.907273978168675,
+              -3.3990701139589596
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                10.080864444673614,
+                20.080864444673615
+              ]
+            ]
+          },
+          "initial_pos": [
+            -385.47037121900166,
+            193.49247726225335,
+            3001.340693732788
+          ],
+          "initial_vel": [
+            33.925611195204766,
+            -18.907273978168675,
+            -183.39907011395897
+          ],
+          "initial_lateral_offset": 431.3081796636815,
+          "t_end": 32.71000000000206,
+          "fuel_used_kg": 6842.452178809368,
+          "fallback_count": 0,
+          "vertical_speed": 1.6357595546178727,
+          "lateral_speed": 0.40622572299604615,
+          "tilt_angle_deg": 0.8536996382782048,
+          "lateral_offset": 2.9647396713279486,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.06065428437007464,
+          "rms_lateral_offset": 161.91603670501772,
+          "compute_time_mean_ms": 4.958770251919637,
+          "compute_time_max_ms": 82.67772299996068,
+          "prop_remaining_kg": 3157.547821190632,
+          "compute_time_p95_ms": 9.912273000054483,
+          "events": [
+            [
+              32.71000000000206,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 39.39458370000011
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 115,
+          "dispersions": {
+            "wind_speed": 8.428056290265364,
+            "wind_dir": 3.7932159676421118,
+            "gust_sigma": 1.5,
+            "density_scale": 0.008833812189565735,
+            "thrust_scale": 1.0192688334707793,
+            "mass_offset": -1108.286643645254,
+            "pos_offset": [
+              -38.218565937067126,
+              12.563882480009113,
+              -9.026141953789931
+            ],
+            "vel_offset": [
+              -2.826968020849725,
+              -0.6752613914570116,
+              -3.496069029904465
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -438.2185659370671,
+            212.5638824800091,
+            2990.97385804621
+          ],
+          "initial_vel": [
+            27.173031979150274,
+            -15.675261391457012,
+            -183.49606902990448
+          ],
+          "initial_lateral_offset": 487.051245421788,
+          "t_end": 32.92000000000202,
+          "fuel_used_kg": 6666.975388516197,
+          "fallback_count": 0,
+          "vertical_speed": 1.7894660197932395,
+          "lateral_speed": 1.1020185223189662,
+          "tilt_angle_deg": 1.7892647441308063,
+          "lateral_offset": 5.607384036615117,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.0669528345793434,
+          "rms_lateral_offset": 229.30473406101288,
+          "compute_time_mean_ms": 5.531860383957145,
+          "compute_time_max_ms": 103.387888999805,
+          "prop_remaining_kg": 3333.0246114838023,
+          "compute_time_p95_ms": 10.697490999973525,
+          "events": [
+            [
+              32.92000000000202,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 44.34441036599992
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 118,
+          "dispersions": {
+            "wind_speed": 11.168275735502027,
+            "wind_dir": 5.89087526022103,
+            "gust_sigma": 1.5,
+            "density_scale": -0.04448915419917154,
+            "thrust_scale": 0.9829283371638009,
+            "mass_offset": 67.45292007499017,
+            "pos_offset": [
+              -46.33228129112011,
+              17.26456290413141,
+              42.81282734619147
+            ],
+            "vel_offset": [
+              -0.6227488720762402,
+              3.7664280241722423,
+              -4.269220463983476
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                16.42081095107159,
+                26.42081095107159
+              ]
+            ]
+          },
+          "initial_pos": [
+            -446.3322812911201,
+            217.26456290413142,
+            3042.8128273461916
+          ],
+          "initial_vel": [
+            29.37725112792376,
+            -11.233571975827758,
+            -184.2692204639835
+          ],
+          "initial_lateral_offset": 496.4034605202293,
+          "t_end": 30.96000000000204,
+          "fuel_used_kg": 6516.241028504466,
+          "fallback_count": 0,
+          "vertical_speed": 1.738857792391219,
+          "lateral_speed": 0.21954467808197267,
+          "tilt_angle_deg": 1.3945952908442012,
+          "lateral_offset": 1.5722172219148414,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.04917740487850084,
+          "rms_lateral_offset": 211.19883311815383,
+          "compute_time_mean_ms": 5.477001975454203,
+          "compute_time_max_ms": 247.30317800003832,
+          "prop_remaining_kg": 3483.7589714955334,
+          "compute_time_p95_ms": 10.68019899958017,
+          "events": [
+            [
+              30.96000000000204,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 41.88663338100014
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 117,
+          "dispersions": {
+            "wind_speed": 10.500141120886322,
+            "wind_dir": 0.9919954896755767,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0208122280507735,
+            "thrust_scale": 0.9916279762678859,
+            "mass_offset": 29.644540941204326,
+            "pos_offset": [
+              -19.755394544522474,
+              19.784529133869555,
+              -10.843074735923395
+            ],
+            "vel_offset": [
+              -3.1869674581196983,
+              0.5757658262303869,
+              3.619110559005925
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -419.75539454452246,
+            219.78452913386957,
+            2989.1569252640766
+          ],
+          "initial_vel": [
+            26.8130325418803,
+            -14.424234173769612,
+            -176.38088944099408
+          ],
+          "initial_lateral_offset": 473.8141307473053,
+          "t_end": 32.06000000000219,
+          "fuel_used_kg": 6641.532449485894,
+          "fallback_count": 0,
+          "vertical_speed": 1.4939177302369306,
+          "lateral_speed": 0.808591650171432,
+          "tilt_angle_deg": 1.1322072013148643,
+          "lateral_offset": 3.771328876040184,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.10225785666734442,
+          "rms_lateral_offset": 211.6898886885477,
+          "compute_time_mean_ms": 5.4623780642507676,
+          "compute_time_max_ms": 111.79239400007646,
+          "prop_remaining_kg": 3358.4675505141063,
+          "compute_time_p95_ms": 10.825129999830096,
+          "events": [
+            [
+              32.06000000000219,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 43.17922428099973
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 116,
+          "dispersions": {
+            "wind_speed": 2.068437190456324,
+            "wind_dir": 5.5098641462258575,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0914356318864849,
+            "thrust_scale": 1.027051433350093,
+            "mass_offset": 17.060391714586498,
+            "pos_offset": [
+              9.832981720389569,
+              -19.983682401240422,
+              4.707204385810968
+            ],
+            "vel_offset": [
+              -1.87045367214153,
+              0.01819531109316408,
+              -1.830743856891691
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                11.426016819941264,
+                21.426016819941264
+              ]
+            ]
+          },
+          "initial_pos": [
+            -390.16701827961043,
+            180.01631759875957,
+            3004.707204385811
+          ],
+          "initial_vel": [
+            28.12954632785847,
+            -14.981804688906836,
+            -181.8307438568917
+          ],
+          "initial_lateral_offset": 429.6931192781883,
+          "t_end": 33.84000000000184,
+          "fuel_used_kg": 7083.144064740847,
+          "fallback_count": 0,
+          "vertical_speed": 1.5000779799700448,
+          "lateral_speed": 0.324084767678311,
+          "tilt_angle_deg": 0.59619931185797,
+          "lateral_offset": 0.2972903136655614,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 7.024029156600602,
+          "control_effort": 0.016872335838251335,
+          "rms_lateral_offset": 175.31926914297082,
+          "compute_time_mean_ms": 5.390771748223019,
+          "compute_time_max_ms": 82.44967600012387,
+          "prop_remaining_kg": 2916.8559352591524,
+          "compute_time_p95_ms": 9.887977949733793,
+          "events": [
+            [
+              33.84000000000184,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 45.468668154999705
+        },
+        {
+          "kind": "sweep",
+          "guidance": "zemzev",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 119,
+          "dispersions": {
+            "wind_speed": 11.474884792495317,
+            "wind_dir": 4.599996696646958,
+            "gust_sigma": 1.5,
+            "density_scale": 0.06380350215650546,
+            "thrust_scale": 0.9786132587244898,
+            "mass_offset": 569.7341024497586,
+            "pos_offset": [
+              -47.6124520124269,
+              6.339638675210502,
+              -48.33216391992882
+            ],
+            "vel_offset": [
+              0.599145681210854,
+              4.773025363670927,
+              -3.6480459453503524
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -447.6124520124269,
+            206.3396386752105,
+            2951.667836080071
+          ],
+          "initial_vel": [
+            30.599145681210853,
+            -10.226974636329073,
+            -183.64804594535036
+          ],
+          "initial_lateral_offset": 492.88229191683644,
+          "t_end": 31.690000000002154,
+          "fuel_used_kg": 6843.963168137765,
+          "fallback_count": 0,
+          "vertical_speed": 1.734780047869172,
+          "lateral_speed": 0.6197394262459159,
+          "tilt_angle_deg": 1.174805631106138,
+          "lateral_offset": 4.471028577841861,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 7.0722391388861015,
+          "control_effort": 0.060616228500045236,
+          "rms_lateral_offset": 222.29906089515922,
+          "compute_time_mean_ms": 5.525264289679134,
+          "compute_time_max_ms": 91.88839900025414,
+          "prop_remaining_kg": 3156.0368318622345,
+          "compute_time_p95_ms": 10.281160600061403,
+          "events": [
+            [
+              31.690000000002154,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 43.06880007400014
+        }
+      ]
+    },
+    "poly": {
+      "n": 20,
+      "successes": 18,
+      "success_rate": 0.9,
+      "wilson95": [
+        0.6989617935882066,
+        0.9721341060158468
+      ],
+      "vs_p50": 1.6719681376127329,
+      "vs_p95": 1.8934305632370856,
+      "lateral_speed_p95": 1.5426185449885457,
+      "tilt_p95": 1.8773548201591874,
+      "offset_p50": 2.745735926011319,
+      "offset_p95": 4.91565938807318,
+      "fuel_used_mean": 6687.410989274276,
+      "fuel_used_std": 215.33361781542072,
+      "control_effort_mean": 0.06055095278321478,
+      "compute_time_ms_mean": 14.01886758130002,
+      "compute_time_ms_p95": 70.11526445481309,
+      "failure_modes": {
+        "success": 18,
+        "lateral_velocity": 2
+      },
+      "runs": [
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 100,
+          "dispersions": {
+            "wind_speed": 10.019779566024107,
+            "wind_dir": 3.748259497183444,
+            "gust_sigma": 1.5,
+            "density_scale": -0.04222735166175928,
+            "thrust_scale": 0.9725770942416526,
+            "mass_offset": 1051.5127571357955,
+            "pos_offset": [
+              9.647170406468838,
+              29.026316441872126,
+              41.03393812954528
+            ],
+            "vel_offset": [
+              1.881544475917451,
+              -3.1000852661227682,
+              4.814789806272664
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                12.277920400141188,
+                22.277920400141188
+              ]
+            ]
+          },
+          "initial_pos": [
+            -390.35282959353117,
+            229.02631644187213,
+            3041.0339381295453
+          ],
+          "initial_vel": [
+            31.88154447591745,
+            -18.10008526612277,
+            -175.18521019372733
+          ],
+          "initial_lateral_offset": 452.5797003784073,
+          "t_end": 31.370000000002104,
+          "fuel_used_kg": 6604.402617411652,
+          "fallback_count": 0,
+          "vertical_speed": 1.8911760179490993,
+          "lateral_speed": 1.1825351544713667,
+          "tilt_angle_deg": 1.2171591026555502,
+          "lateral_offset": 3.6527347957099354,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 7.097386783879078,
+          "control_effort": 0.057562159329422366,
+          "rms_lateral_offset": 190.67808259815283,
+          "compute_time_mean_ms": 6.521425991394028,
+          "compute_time_max_ms": 368.00826600028813,
+          "prop_remaining_kg": 3395.597382588348,
+          "compute_time_p95_ms": 12.240741999903548,
+          "events": [
+            [
+              31.370000000002104,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 51.710081365000406
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 104,
+          "dispersions": {
+            "wind_speed": 10.062777748434428,
+            "wind_dir": 4.348895077846899,
+            "gust_sigma": 1.5,
+            "density_scale": -0.05678223435463508,
+            "thrust_scale": 0.9775247138764565,
+            "mass_offset": -277.3461780748628,
+            "pos_offset": [
+              25.388851812558883,
+              23.51879615584447,
+              -8.711051745948282
+            ],
+            "vel_offset": [
+              1.4493136945497733,
+              3.2420529965544134,
+              -4.337173399117654
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                14.306377895870972,
+                24.306377895870973
+              ]
+            ]
+          },
+          "initial_pos": [
+            -374.61114818744113,
+            223.51879615584448,
+            2991.288948254052
+          ],
+          "initial_vel": [
+            31.449313694549772,
+            -11.757947003445587,
+            -184.33717339911766
+          ],
+          "initial_lateral_offset": 436.2271937663572,
+          "t_end": 30.26000000000193,
+          "fuel_used_kg": 6353.03105797717,
+          "fallback_count": 0,
+          "vertical_speed": 1.9362669237088261,
+          "lateral_speed": 0.6967658045619496,
+          "tilt_angle_deg": 1.02950786227946,
+          "lateral_offset": 3.1145391252450363,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.04710231809449658,
+          "rms_lateral_offset": 183.85660324333452,
+          "compute_time_mean_ms": 6.927059368149773,
+          "compute_time_max_ms": 208.16918299988174,
+          "prop_remaining_kg": 3646.9689420228297,
+          "compute_time_p95_ms": 13.318995499844277,
+          "events": [
+            [
+              30.26000000000193,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 55.09313085699978
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 102,
+          "dispersions": {
+            "wind_speed": 1.919893740051644,
+            "wind_dir": 3.68159168328128,
+            "gust_sigma": 1.5,
+            "density_scale": 0.06476735543656928,
+            "thrust_scale": 0.9878356142056177,
+            "mass_offset": 410.4769378327905,
+            "pos_offset": [
+              -3.6115839694017,
+              39.135742987238714,
+              6.487326202975808
+            ],
+            "vel_offset": [
+              4.931919916088924,
+              -2.5747843993509365,
+              -3.9070373956066398
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                12.764399369111356,
+                22.764399369111356
+              ]
+            ]
+          },
+          "initial_pos": [
+            -403.6115839694017,
+            239.1357429872387,
+            3006.487326202976
+          ],
+          "initial_vel": [
+            34.93191991608892,
+            -17.574784399350936,
+            -183.90703739560664
+          ],
+          "initial_lateral_offset": 469.13560330500184,
+          "t_end": 31.770000000002167,
+          "fuel_used_kg": 6828.7274633107045,
+          "fallback_count": 0,
+          "vertical_speed": 1.6377465256139936,
+          "lateral_speed": 0.7611933165051037,
+          "tilt_angle_deg": 1.839171852969835,
+          "lateral_offset": 2.526732180546339,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.05268934361454215,
+          "rms_lateral_offset": 190.68967868178746,
+          "compute_time_mean_ms": 6.991520311611001,
+          "compute_time_max_ms": 197.09612399992693,
+          "prop_remaining_kg": 3171.272536689296,
+          "compute_time_p95_ms": 13.822791200254864,
+          "events": [
+            [
+              31.770000000002167,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 57.68309132400009
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 101,
+          "dispersions": {
+            "wind_speed": 11.322390067326648,
+            "wind_dir": 2.2583089557830767,
+            "gust_sigma": 1.5,
+            "density_scale": 0.056961082393995416,
+            "thrust_scale": 1.0054766911137647,
+            "mass_offset": -456.59059414281944,
+            "pos_offset": [
+              42.27256864229143,
+              36.93315446785694,
+              -13.586157370947717
+            ],
+            "vel_offset": [
+              4.731768146328939,
+              -2.7547566926486877,
+              3.0549586792812207
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -357.72743135770855,
+            236.93315446785692,
+            2986.4138426290524
+          ],
+          "initial_vel": [
+            34.73176814632894,
+            -17.754756692648687,
+            -176.9450413207188
+          ],
+          "initial_lateral_offset": 429.0760245362976,
+          "t_end": 32.67000000000207,
+          "fuel_used_kg": 6711.36825191901,
+          "fallback_count": 0,
+          "vertical_speed": 1.6245641057277642,
+          "lateral_speed": 1.1002226453842303,
+          "tilt_angle_deg": 0.27279803159009164,
+          "lateral_offset": 4.691105138808193,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.10576777592488065,
+          "rms_lateral_offset": 177.82533227622608,
+          "compute_time_mean_ms": 6.937708978880678,
+          "compute_time_max_ms": 206.20036899981642,
+          "prop_remaining_kg": 3288.63174808099,
+          "compute_time_p95_ms": 14.183666299913929,
+          "events": [
+            [
+              32.67000000000207,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 59.125582356999985
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 103,
+          "dispersions": {
+            "wind_speed": 3.75219879267537,
+            "wind_dir": 1.4094329605366218,
+            "gust_sigma": 1.5,
+            "density_scale": -0.06359805438113897,
+            "thrust_scale": 1.021610718735606,
+            "mass_offset": 793.7443242044203,
+            "pos_offset": [
+              -39.643756641952635,
+              -21.091016286576036,
+              16.15717391462897
+            ],
+            "vel_offset": [
+              2.0129576362924126,
+              -0.6131999688044685,
+              -0.18593396257855765
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -439.6437566419526,
+            178.90898371342396,
+            3016.157173914629
+          ],
+          "initial_vel": [
+            32.01295763629241,
+            -15.61319996880447,
+            -180.18593396257856
+          ],
+          "initial_lateral_offset": 474.6525647330041,
+          "t_end": 33.69000000000187,
+          "fuel_used_kg": 6975.730776119515,
+          "fallback_count": 0,
+          "vertical_speed": 1.49252983651971,
+          "lateral_speed": 0.3079036986257778,
+          "tilt_angle_deg": 0.9836222797522266,
+          "lateral_offset": 2.241682882300654,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.04090427311558825,
+          "rms_lateral_offset": 196.8136122719148,
+          "compute_time_mean_ms": 7.211556239234399,
+          "compute_time_max_ms": 212.68590299996504,
+          "prop_remaining_kg": 3024.269223880485,
+          "compute_time_p95_ms": 15.021391000118456,
+          "events": [
+            [
+              33.69000000000187,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 64.79571792299976
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 105,
+          "dispersions": {
+            "wind_speed": 7.658344003218534,
+            "wind_dir": 6.229525493963413,
+            "gust_sigma": 1.5,
+            "density_scale": -0.08065410891067526,
+            "thrust_scale": 1.0004022605061853,
+            "mass_offset": -229.905527707839,
+            "pos_offset": [
+              -29.3983763953355,
+              38.33688233707825,
+              4.048287988329072
+            ],
+            "vel_offset": [
+              1.1220446055837465,
+              -2.146384124079624,
+              0.5605902322153291
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -429.3983763953355,
+            238.33688233707824,
+            3004.048287988329
+          ],
+          "initial_vel": [
+            31.122044605583746,
+            -17.146384124079624,
+            -179.43940976778467
+          ],
+          "initial_lateral_offset": 491.1083741223606,
+          "t_end": 31.320000000002096,
+          "fuel_used_kg": 6433.233576902152,
+          "fallback_count": 0,
+          "vertical_speed": 1.6768520921696222,
+          "lateral_speed": 0.2334290728121998,
+          "tilt_angle_deg": 0.8373773659437835,
+          "lateral_offset": 1.180436095587346,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.049496416389372605,
+          "rms_lateral_offset": 200.03836253208604,
+          "compute_time_mean_ms": 10.199798950824228,
+          "compute_time_max_ms": 246.26242599970283,
+          "prop_remaining_kg": 3566.766423097848,
+          "compute_time_p95_ms": 25.20733699975608,
+          "events": [
+            [
+              31.320000000002096,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 92.68245468499981
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 108,
+          "dispersions": {
+            "wind_speed": 10.27192580794314,
+            "wind_dir": 3.9727019656844296,
+            "gust_sigma": 1.5,
+            "density_scale": -0.07641888860807185,
+            "thrust_scale": 0.9910379611706085,
+            "mass_offset": -576.9582632506351,
+            "pos_offset": [
+              -42.41644884865817,
+              -2.352698239088866,
+              39.38003173443629
+            ],
+            "vel_offset": [
+              -0.5873657080786563,
+              1.1823308584991654,
+              0.32715882338734037
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                14.438217914455793,
+                24.43821791445579
+              ]
+            ]
+          },
+          "initial_pos": [
+            -442.41644884865815,
+            197.64730176091115,
+            3039.380031734436
+          ],
+          "initial_vel": [
+            29.412634291921343,
+            -13.817669141500835,
+            -179.67284117661265
+          ],
+          "initial_lateral_offset": 484.5583247713592,
+          "t_end": 31.500000000002125,
+          "fuel_used_kg": 6391.434323919069,
+          "fallback_count": 0,
+          "vertical_speed": 1.777419759128775,
+          "lateral_speed": 1.5231886210296015,
+          "tilt_angle_deg": 2.3574322392643188,
+          "lateral_offset": 3.7035484646584464,
+          "success": false,
+          "failure_mode": "lateral_velocity",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.06023221710614841,
+          "rms_lateral_offset": 221.80901781790865,
+          "compute_time_mean_ms": 9.626674191748616,
+          "compute_time_max_ms": 166.9334059997709,
+          "prop_remaining_kg": 3608.5656760809306,
+          "compute_time_p95_ms": 23.01853890003256,
+          "events": [
+            [
+              31.500000000002125,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 90.01186232500004
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 106,
+          "dispersions": {
+            "wind_speed": 11.788894265560028,
+            "wind_dir": 0.25384164706923557,
+            "gust_sigma": 1.5,
+            "density_scale": -0.07544266203381284,
+            "thrust_scale": 0.9978559277876479,
+            "mass_offset": 1031.061894018843,
+            "pos_offset": [
+              -36.12006862558136,
+              -17.439481869883657,
+              -30.829225521098756
+            ],
+            "vel_offset": [
+              -1.7835667480125297,
+              -4.447522536534479,
+              1.3591484771254647
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                10.54864568494224,
+                20.54864568494224
+              ]
+            ]
+          },
+          "initial_pos": [
+            -436.1200686255814,
+            182.56051813011635,
+            2969.1707744789014
+          ],
+          "initial_vel": [
+            28.21643325198747,
+            -19.44752253653448,
+            -178.64085152287453
+          ],
+          "initial_lateral_offset": 472.78859656078674,
+          "t_end": 32.0100000000022,
+          "fuel_used_kg": 6741.915059652747,
+          "fallback_count": 0,
+          "vertical_speed": 1.6300848894267934,
+          "lateral_speed": 0.26881534001223384,
+          "tilt_angle_deg": 0.712090504639988,
+          "lateral_offset": 2.1700290685732453,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.044720763048369715,
+          "rms_lateral_offset": 192.11695569392745,
+          "compute_time_mean_ms": 10.000595265854603,
+          "compute_time_max_ms": 191.11963700015622,
+          "prop_remaining_kg": 3258.0849403472525,
+          "compute_time_p95_ms": 24.365898000269226,
+          "events": [
+            [
+              32.0100000000022,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 92.363337409
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 109,
+          "dispersions": {
+            "wind_speed": 6.524906987013351,
+            "wind_dir": 5.28672769587761,
+            "gust_sigma": 1.5,
+            "density_scale": 0.05001521512888743,
+            "thrust_scale": 0.9898981256764824,
+            "mass_offset": 220.34192514999148,
+            "pos_offset": [
+              -30.549876275186982,
+              -34.8557112759007,
+              0.3886259951500577
+            ],
+            "vel_offset": [
+              0.4263469379909388,
+              4.994093803265265,
+              4.838589035135106
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -430.549876275187,
+            165.14428872409928,
+            3000.38862599515
+          ],
+          "initial_vel": [
+            30.42634693799094,
+            -10.005906196734735,
+            -175.1614109648649
+          ],
+          "initial_lateral_offset": 461.135372812331,
+          "t_end": 31.640000000002146,
+          "fuel_used_kg": 6646.8952484099955,
+          "fallback_count": 0,
+          "vertical_speed": 1.6060309585300838,
+          "lateral_speed": 0.14437624747291727,
+          "tilt_angle_deg": 1.1690104740795604,
+          "lateral_offset": 1.3854020195910515,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.026383928451991147,
+          "rms_lateral_offset": 192.33913122806868,
+          "compute_time_mean_ms": 9.957135355239274,
+          "compute_time_max_ms": 191.07323899970652,
+          "prop_remaining_kg": 3353.104751590004,
+          "compute_time_p95_ms": 24.931624000146257,
+          "events": [
+            [
+              31.640000000002146,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 88.34449436900013
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 107,
+          "dispersions": {
+            "wind_speed": 7.7824310328030935,
+            "wind_dir": 3.0014058001707737,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0005474763838493046,
+            "thrust_scale": 1.0140870331221297,
+            "mass_offset": -19.59531980932419,
+            "pos_offset": [
+              -42.34670387989369,
+              -8.439658977182255,
+              48.957719098854994
+            ],
+            "vel_offset": [
+              -3.3279320085566533,
+              3.165777412765104,
+              -2.706470246620525
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -442.3467038798937,
+            191.56034102281774,
+            3048.957719098855
+          ],
+          "initial_vel": [
+            26.672067991443345,
+            -11.834222587234896,
+            -182.7064702466205
+          ],
+          "initial_lateral_offset": 482.0435360900347,
+          "t_end": 33.91000000000182,
+          "fuel_used_kg": 6953.266171014136,
+          "fallback_count": 0,
+          "vertical_speed": 1.5553283147453754,
+          "lateral_speed": 1.9117871002084807,
+          "tilt_angle_deg": 1.393333772113619,
+          "lateral_offset": 3.6418958536197357,
+          "success": false,
+          "failure_mode": "lateral_velocity",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.11064934472365129,
+          "rms_lateral_offset": 233.55385244755087,
+          "compute_time_mean_ms": 9.862248425246854,
+          "compute_time_max_ms": 184.26038000006884,
+          "prop_remaining_kg": 3046.7338289858644,
+          "compute_time_p95_ms": 24.20650499993826,
+          "events": [
+            [
+              33.91000000000182,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 96.09995640499983
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 110,
+          "dispersions": {
+            "wind_speed": 11.165913738123601,
+            "wind_dir": 3.2197415378935696,
+            "gust_sigma": 1.5,
+            "density_scale": 0.04250466610447978,
+            "thrust_scale": 1.0001334298080826,
+            "mass_offset": -577.532760631855,
+            "pos_offset": [
+              37.635468021920076,
+              -43.11992945416997,
+              20.262626384354974
+            ],
+            "vel_offset": [
+              -4.020995088104451,
+              -0.5432085018130328,
+              0.2465743067950923
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                12.118083651832361,
+                22.11808365183236
+              ]
+            ]
+          },
+          "initial_pos": [
+            -362.3645319780799,
+            156.88007054583002,
+            3020.262626384355
+          ],
+          "initial_vel": [
+            25.97900491189555,
+            -15.543208501813034,
+            -179.75342569320492
+          ],
+          "initial_lateral_offset": 394.86631987314075,
+          "t_end": 32.63000000000208,
+          "fuel_used_kg": 6674.263756210408,
+          "fallback_count": 0,
+          "vertical_speed": 1.870140799976728,
+          "lateral_speed": 1.2428361643049586,
+          "tilt_angle_deg": 0.7756974485894562,
+          "lateral_offset": 4.878814746179802,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.13121366037552964,
+          "rms_lateral_offset": 182.4654780537463,
+          "compute_time_mean_ms": 9.83168828592727,
+          "compute_time_max_ms": 709.2881409998881,
+          "prop_remaining_kg": 3325.7362437895913,
+          "compute_time_p95_ms": 19.2382440000074,
+          "events": [
+            [
+              32.63000000000208,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 96.0879797030002
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 112,
+          "dispersions": {
+            "wind_speed": 1.3975081560918645,
+            "wind_dir": 5.303973326787137,
+            "gust_sigma": 1.5,
+            "density_scale": 0.05973468486493133,
+            "thrust_scale": 0.9710437969178297,
+            "mass_offset": -939.178284930658,
+            "pos_offset": [
+              -0.35436542013454186,
+              32.70988132606887,
+              -23.81011551428559
+            ],
+            "vel_offset": [
+              -1.8710694601983926,
+              2.2240675466882465,
+              -4.50572848989308
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                16.575779561123674,
+                26.575779561123674
+              ]
+            ]
+          },
+          "initial_pos": [
+            -400.3543654201345,
+            232.70988132606885,
+            2976.1898844857146
+          ],
+          "initial_vel": [
+            28.12893053980161,
+            -12.775932453311754,
+            -184.50572848989307
+          ],
+          "initial_lateral_offset": 463.07397549176915,
+          "t_end": 29.960000000001884,
+          "fuel_used_kg": 6328.461310912568,
+          "fallback_count": 0,
+          "vertical_speed": 1.7266832902895644,
+          "lateral_speed": 1.1900778742709348,
+          "tilt_angle_deg": 0.910455449782098,
+          "lateral_offset": 1.6687983000892594,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.05536074926928673,
+          "rms_lateral_offset": 209.81995381809983,
+          "compute_time_mean_ms": 10.44747234579253,
+          "compute_time_max_ms": 1176.391988999967,
+          "prop_remaining_kg": 3671.5386890874324,
+          "compute_time_p95_ms": 20.670703500059062,
+          "events": [
+            [
+              29.960000000001884,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 89.59566343000006
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 111,
+          "dispersions": {
+            "wind_speed": 1.8439362714279945,
+            "wind_dir": 1.0637640130423889,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0011928628996531188,
+            "thrust_scale": 1.009487132407225,
+            "mass_offset": 594.0295469939582,
+            "pos_offset": [
+              -39.07725411191446,
+              29.759652636523427,
+              46.87459069451401
+            ],
+            "vel_offset": [
+              -2.5305066394368767,
+              -3.0248617089935204,
+              -1.6172446393154938
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -439.07725411191444,
+            229.7596526365234,
+            3046.874590694514
+          ],
+          "initial_vel": [
+            27.469493360563124,
+            -18.02486170899352,
+            -181.6172446393155
+          ],
+          "initial_lateral_offset": 495.55860708710793,
+          "t_end": 33.390000000001926,
+          "fuel_used_kg": 6980.8134013962135,
+          "fallback_count": 0,
+          "vertical_speed": 1.6670841830558438,
+          "lateral_speed": 0.4595740084591957,
+          "tilt_angle_deg": 1.1072428193937682,
+          "lateral_offset": 3.184425981246866,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 7.968374797924952,
+          "control_effort": 0.03405155487681311,
+          "rms_lateral_offset": 218.66226984512852,
+          "compute_time_mean_ms": 12.291565850561298,
+          "compute_time_max_ms": 1439.3002729998443,
+          "prop_remaining_kg": 3019.186598603786,
+          "compute_time_p95_ms": 26.492152999708196,
+          "events": [
+            [
+              33.390000000001926,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 120.27911996700004
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 113,
+          "dispersions": {
+            "wind_speed": 0.8469372753667006,
+            "wind_dir": 0.9479375692569203,
+            "gust_sigma": 1.5,
+            "density_scale": -0.07104744842395352,
+            "thrust_scale": 1.0066296021557029,
+            "mass_offset": -89.8357861598978,
+            "pos_offset": [
+              49.88557098018387,
+              -0.32705008150962556,
+              -32.95412086414695
+            ],
+            "vel_offset": [
+              -4.547734283078258,
+              2.093158691816363,
+              -0.11741340783181009
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -350.11442901981616,
+            199.67294991849036,
+            2967.045879135853
+          ],
+          "initial_vel": [
+            25.452265716921744,
+            -12.906841308183637,
+            -180.1174134078318
+          ],
+          "initial_lateral_offset": 403.05012137080894,
+          "t_end": 31.72000000000216,
+          "fuel_used_kg": 6528.555881401004,
+          "fallback_count": 0,
+          "vertical_speed": 1.6894100423958256,
+          "lateral_speed": 0.3661155710706585,
+          "tilt_angle_deg": 0.792320035423557,
+          "lateral_offset": 1.546660835135104,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.036919165566070736,
+          "rms_lateral_offset": 170.4457098139143,
+          "compute_time_mean_ms": 12.31604115510113,
+          "compute_time_max_ms": 858.8379499997245,
+          "prop_remaining_kg": 3471.444118598996,
+          "compute_time_p95_ms": 31.046926000271924,
+          "events": [
+            [
+              31.72000000000216,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 119.0045303070001
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 114,
+          "dispersions": {
+            "wind_speed": 8.734659294116224,
+            "wind_dir": 0.8932120760217,
+            "gust_sigma": 1.5,
+            "density_scale": -0.013323154855990157,
+            "thrust_scale": 1.0122467308922016,
+            "mass_offset": 240.43632099580427,
+            "pos_offset": [
+              14.529628780998365,
+              -6.507522737746655,
+              1.3406937327882886
+            ],
+            "vel_offset": [
+              3.9256111952047696,
+              -3.907273978168675,
+              -3.3990701139589596
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                10.080864444673614,
+                20.080864444673615
+              ]
+            ]
+          },
+          "initial_pos": [
+            -385.47037121900166,
+            193.49247726225335,
+            3001.340693732788
+          ],
+          "initial_vel": [
+            33.925611195204766,
+            -18.907273978168675,
+            -183.39907011395897
+          ],
+          "initial_lateral_offset": 431.3081796636815,
+          "t_end": 32.71000000000206,
+          "fuel_used_kg": 6842.452178809337,
+          "fallback_count": 0,
+          "vertical_speed": 1.6357595546070556,
+          "lateral_speed": 0.4062257229582372,
+          "tilt_angle_deg": 0.8536996382312414,
+          "lateral_offset": 2.9647396714762984,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.06065428437018611,
+          "rms_lateral_offset": 161.91603670503645,
+          "compute_time_mean_ms": 12.542532797301634,
+          "compute_time_max_ms": 719.6778640000048,
+          "prop_remaining_kg": 3157.5478211906634,
+          "compute_time_p95_ms": 34.379741500060845,
+          "events": [
+            [
+              32.71000000000206,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 126.80504917500002
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 115,
+          "dispersions": {
+            "wind_speed": 8.428056290265364,
+            "wind_dir": 3.7932159676421118,
+            "gust_sigma": 1.5,
+            "density_scale": 0.008833812189565735,
+            "thrust_scale": 1.0192688334707793,
+            "mass_offset": -1108.286643645254,
+            "pos_offset": [
+              -38.218565937067126,
+              12.563882480009113,
+              -9.026141953789931
+            ],
+            "vel_offset": [
+              -2.826968020849725,
+              -0.6752613914570116,
+              -3.496069029904465
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -438.2185659370671,
+            212.5638824800091,
+            2990.97385804621
+          ],
+          "initial_vel": [
+            27.173031979150274,
+            -15.675261391457012,
+            -183.49606902990448
+          ],
+          "initial_lateral_offset": 487.051245421788,
+          "t_end": 32.92000000000202,
+          "fuel_used_kg": 6666.993905135308,
+          "fallback_count": 0,
+          "vertical_speed": 1.7895945575643435,
+          "lateral_speed": 1.0760507444198897,
+          "tilt_angle_deg": 1.8520875875747065,
+          "lateral_offset": 5.615707584047355,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.06699597817999141,
+          "rms_lateral_offset": 229.30474484039323,
+          "compute_time_mean_ms": 27.550571657338036,
+          "compute_time_max_ms": 2371.992916000181,
+          "prop_remaining_kg": 3333.0060948646924,
+          "compute_time_p95_ms": 70.10727699980634,
+          "events": [
+            [
+              32.92000000000202,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 324.75230345299997
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 116,
+          "dispersions": {
+            "wind_speed": 2.068437190456324,
+            "wind_dir": 5.5098641462258575,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0914356318864849,
+            "thrust_scale": 1.027051433350093,
+            "mass_offset": 17.060391714586498,
+            "pos_offset": [
+              9.832981720389569,
+              -19.983682401240422,
+              4.707204385810968
+            ],
+            "vel_offset": [
+              -1.87045367214153,
+              0.01819531109316408,
+              -1.830743856891691
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                11.426016819941264,
+                21.426016819941264
+              ]
+            ]
+          },
+          "initial_pos": [
+            -390.16701827961043,
+            180.01631759875957,
+            3004.707204385811
+          ],
+          "initial_vel": [
+            28.12954632785847,
+            -14.981804688906836,
+            -181.8307438568917
+          ],
+          "initial_lateral_offset": 429.6931192781883,
+          "t_end": 33.84000000000184,
+          "fuel_used_kg": 7083.144064740938,
+          "fallback_count": 0,
+          "vertical_speed": 1.5000779799636086,
+          "lateral_speed": 0.32408476774025474,
+          "tilt_angle_deg": 0.5961993118377964,
+          "lateral_offset": 0.2972903136134273,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 7.024029156600602,
+          "control_effort": 0.01687233583825578,
+          "rms_lateral_offset": 175.31926914301008,
+          "compute_time_mean_ms": 28.33692801299598,
+          "compute_time_max_ms": 1322.9057809999176,
+          "prop_remaining_kg": 2916.855935259062,
+          "compute_time_p95_ms": 70.26702609994116,
+          "events": [
+            [
+              33.84000000000184,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 331.56567301799987
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 118,
+          "dispersions": {
+            "wind_speed": 11.168275735502027,
+            "wind_dir": 5.89087526022103,
+            "gust_sigma": 1.5,
+            "density_scale": -0.04448915419917154,
+            "thrust_scale": 0.9829283371638009,
+            "mass_offset": 67.45292007499017,
+            "pos_offset": [
+              -46.33228129112011,
+              17.26456290413141,
+              42.81282734619147
+            ],
+            "vel_offset": [
+              -0.6227488720762402,
+              3.7664280241722423,
+              -4.269220463983476
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                16.42081095107159,
+                26.42081095107159
+              ]
+            ]
+          },
+          "initial_pos": [
+            -446.3322812911201,
+            217.26456290413142,
+            3042.8128273461916
+          ],
+          "initial_vel": [
+            29.37725112792376,
+            -11.233571975827758,
+            -184.2692204639835
+          ],
+          "initial_lateral_offset": 496.4034605202293,
+          "t_end": 30.95000000000204,
+          "fuel_used_kg": 6516.811943592453,
+          "fallback_count": 0,
+          "vertical_speed": 1.692921800924844,
+          "lateral_speed": 0.26900560256394074,
+          "tilt_angle_deg": 1.4318458553299693,
+          "lateral_offset": 1.36403387608655,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.0605359638984212,
+          "rms_lateral_offset": 211.1979075395724,
+          "compute_time_mean_ms": 29.210746981274283,
+          "compute_time_max_ms": 2013.2809380002072,
+          "prop_remaining_kg": 3483.188056407547,
+          "compute_time_p95_ms": 69.7715840001365,
+          "events": [
+            [
+              30.95000000000204,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 303.820370595
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 117,
+          "dispersions": {
+            "wind_speed": 10.500141120886322,
+            "wind_dir": 0.9919954896755767,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0208122280507735,
+            "thrust_scale": 0.9916279762678859,
+            "mass_offset": 29.644540941204326,
+            "pos_offset": [
+              -19.755394544522474,
+              19.784529133869555,
+              -10.843074735923395
+            ],
+            "vel_offset": [
+              -3.1869674581196983,
+              0.5757658262303869,
+              3.619110559005925
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -419.75539454452246,
+            219.78452913386957,
+            2989.1569252640766
+          ],
+          "initial_vel": [
+            26.8130325418803,
+            -14.424234173769612,
+            -176.38088944099408
+          ],
+          "initial_lateral_offset": 473.8141307473053,
+          "t_end": 32.06000000000219,
+          "fuel_used_kg": 6641.532449485629,
+          "fallback_count": 0,
+          "vertical_speed": 1.4939177302617355,
+          "lateral_speed": 0.8085916501704945,
+          "tilt_angle_deg": 1.1322072013399747,
+          "lateral_offset": 3.7713288760351853,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.10225785666724727,
+          "rms_lateral_offset": 211.68988868859023,
+          "compute_time_mean_ms": 27.380110956955317,
+          "compute_time_max_ms": 2371.9394849999844,
+          "prop_remaining_kg": 3358.4675505143714,
+          "compute_time_p95_ms": 56.32361000061792,
+          "events": [
+            [
+              32.06000000000219,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 308.8113143739997
+        },
+        {
+          "kind": "sweep",
+          "guidance": "poly",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 119,
+          "dispersions": {
+            "wind_speed": 11.474884792495317,
+            "wind_dir": 4.599996696646958,
+            "gust_sigma": 1.5,
+            "density_scale": 0.06380350215650546,
+            "thrust_scale": 0.9786132587244898,
+            "mass_offset": 569.7341024497586,
+            "pos_offset": [
+              -47.6124520124269,
+              6.339638675210502,
+              -48.33216391992882
+            ],
+            "vel_offset": [
+              0.599145681210854,
+              4.773025363670927,
+              -3.6480459453503524
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -447.6124520124269,
+            206.3396386752105,
+            2951.667836080071
+          ],
+          "initial_vel": [
+            30.599145681210853,
+            -10.226974636329073,
+            -183.64804594535036
+          ],
+          "initial_lateral_offset": 492.88229191683644,
+          "t_end": 31.710000000002157,
+          "fuel_used_kg": 6845.186347165531,
+          "fallback_count": 0,
+          "vertical_speed": 1.7287675213449394,
+          "lateral_speed": 1.0841988247810705,
+          "tilt_angle_deg": 1.2337509267582816,
+          "lateral_offset": 2.429356480063918,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 7.072239138886094,
+          "control_effort": 0.050648966824030625,
+          "rms_lateral_offset": 222.22691809106303,
+          "compute_time_mean_ms": 26.233970504569495,
+          "compute_time_max_ms": 1021.5411179997318,
+          "prop_remaining_kg": 3154.81365283447,
+          "compute_time_p95_ms": 63.14056950009217,
+          "events": [
+            [
+              31.710000000002157,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 306.06195721799986
+        }
+      ]
+    },
+    "optimal": {
+      "n": 20,
+      "successes": 13,
+      "success_rate": 0.65,
+      "wilson95": [
+        0.43285051021946463,
+        0.8188104521320554
+      ],
+      "vs_p50": 1.6885649008106731,
+      "vs_p95": 22.306320143339043,
+      "lateral_speed_p95": 19.36164727637038,
+      "tilt_p95": 42.9479430334348,
+      "offset_p50": 4.397203864288248,
+      "offset_p95": 22.08922889353949,
+      "fuel_used_mean": 6582.8839954404175,
+      "fuel_used_std": 267.8125479047172,
+      "control_effort_mean": 0.2620099105353229,
+      "compute_time_ms_mean": 16.316541805596348,
+      "compute_time_ms_p95": 65.98435524489554,
+      "failure_modes": {
+        "tipover": 1,
+        "success": 13,
+        "lateral_velocity": 3,
+        "hard_landing": 3
+      },
+      "runs": [
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 100,
+          "dispersions": {
+            "wind_speed": 10.019779566024107,
+            "wind_dir": 3.748259497183444,
+            "gust_sigma": 1.5,
+            "density_scale": -0.04222735166175928,
+            "thrust_scale": 0.9725770942416526,
+            "mass_offset": 1051.5127571357955,
+            "pos_offset": [
+              9.647170406468838,
+              29.026316441872126,
+              41.03393812954528
+            ],
+            "vel_offset": [
+              1.881544475917451,
+              -3.1000852661227682,
+              4.814789806272664
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                12.277920400141188,
+                22.277920400141188
+              ]
+            ]
+          },
+          "initial_pos": [
+            -390.35282959353117,
+            229.02631644187213,
+            3041.0339381295453
+          ],
+          "initial_vel": [
+            31.88154447591745,
+            -18.10008526612277,
+            -175.18521019372733
+          ],
+          "initial_lateral_offset": 452.5797003784073,
+          "t_end": 28.380000000001637,
+          "fuel_used_kg": 6268.598245485019,
+          "fallback_count": 2,
+          "vertical_speed": 1.9751958401658416,
+          "lateral_speed": 1.0901224620286714,
+          "tilt_angle_deg": 5.101041641353309,
+          "lateral_offset": 4.562784206829103,
+          "success": false,
+          "failure_mode": "tipover",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.3863098025271461,
+          "rms_lateral_offset": 204.63727073090396,
+          "compute_time_mean_ms": 25.745608345300962,
+          "compute_time_max_ms": 2094.764297000438,
+          "prop_remaining_kg": 3731.401754514981,
+          "compute_time_p95_ms": 53.68421509974724,
+          "events": [
+            [
+              28.380000000001637,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 242.54766183599986
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 102,
+          "dispersions": {
+            "wind_speed": 1.919893740051644,
+            "wind_dir": 3.68159168328128,
+            "gust_sigma": 1.5,
+            "density_scale": 0.06476735543656928,
+            "thrust_scale": 0.9878356142056177,
+            "mass_offset": 410.4769378327905,
+            "pos_offset": [
+              -3.6115839694017,
+              39.135742987238714,
+              6.487326202975808
+            ],
+            "vel_offset": [
+              4.931919916088924,
+              -2.5747843993509365,
+              -3.9070373956066398
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                12.764399369111356,
+                22.764399369111356
+              ]
+            ]
+          },
+          "initial_pos": [
+            -403.6115839694017,
+            239.1357429872387,
+            3006.487326202976
+          ],
+          "initial_vel": [
+            34.93191991608892,
+            -17.574784399350936,
+            -183.90703739560664
+          ],
+          "initial_lateral_offset": 469.13560330500184,
+          "t_end": 30.590000000001982,
+          "fuel_used_kg": 6747.121308010739,
+          "fallback_count": 3,
+          "vertical_speed": 1.5641848749224283,
+          "lateral_speed": 0.26948868361982975,
+          "tilt_angle_deg": 0.4716452941159018,
+          "lateral_offset": 4.508581075792153,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.421737013653599,
+          "rms_lateral_offset": 195.44516323607243,
+          "compute_time_mean_ms": 28.40614276986698,
+          "compute_time_max_ms": 2797.003272999973,
+          "prop_remaining_kg": 3252.8786919892614,
+          "compute_time_p95_ms": 65.51479509989797,
+          "events": [
+            [
+              30.590000000001982,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 274.7975667370001
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 104,
+          "dispersions": {
+            "wind_speed": 10.062777748434428,
+            "wind_dir": 4.348895077846899,
+            "gust_sigma": 1.5,
+            "density_scale": -0.05678223435463508,
+            "thrust_scale": 0.9775247138764565,
+            "mass_offset": -277.3461780748628,
+            "pos_offset": [
+              25.388851812558883,
+              23.51879615584447,
+              -8.711051745948282
+            ],
+            "vel_offset": [
+              1.4493136945497733,
+              3.2420529965544134,
+              -4.337173399117654
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                14.306377895870972,
+                24.306377895870973
+              ]
+            ]
+          },
+          "initial_pos": [
+            -374.61114818744113,
+            223.51879615584448,
+            2991.288948254052
+          ],
+          "initial_vel": [
+            31.449313694549772,
+            -11.757947003445587,
+            -184.33717339911766
+          ],
+          "initial_lateral_offset": 436.2271937663572,
+          "t_end": 29.780000000001856,
+          "fuel_used_kg": 6344.7212692377525,
+          "fallback_count": 3,
+          "vertical_speed": 1.919623518845827,
+          "lateral_speed": 1.012255779729775,
+          "tilt_angle_deg": 2.4184525628600344,
+          "lateral_offset": 5.186771183410677,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.28273868031701893,
+          "rms_lateral_offset": 186.70368163588833,
+          "compute_time_mean_ms": 30.882641049703057,
+          "compute_time_max_ms": 3705.388507999487,
+          "prop_remaining_kg": 3655.2787307622475,
+          "compute_time_p95_ms": 74.9059979998492,
+          "events": [
+            [
+              29.780000000001856,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 284.27658261299985
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 101,
+          "dispersions": {
+            "wind_speed": 11.322390067326648,
+            "wind_dir": 2.2583089557830767,
+            "gust_sigma": 1.5,
+            "density_scale": 0.056961082393995416,
+            "thrust_scale": 1.0054766911137647,
+            "mass_offset": -456.59059414281944,
+            "pos_offset": [
+              42.27256864229143,
+              36.93315446785694,
+              -13.586157370947717
+            ],
+            "vel_offset": [
+              4.731768146328939,
+              -2.7547566926486877,
+              3.0549586792812207
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -357.72743135770855,
+            236.93315446785692,
+            2986.4138426290524
+          ],
+          "initial_vel": [
+            34.73176814632894,
+            -17.754756692648687,
+            -176.9450413207188
+          ],
+          "initial_lateral_offset": 429.0760245362976,
+          "t_end": 32.290000000002145,
+          "fuel_used_kg": 6738.986881241952,
+          "fallback_count": 5,
+          "vertical_speed": 1.698495516769119,
+          "lateral_speed": 1.087731079812802,
+          "tilt_angle_deg": 0.4997012012241121,
+          "lateral_offset": 4.88878784293041,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.24350554569891492,
+          "rms_lateral_offset": 182.68963650782058,
+          "compute_time_mean_ms": 33.45781111953641,
+          "compute_time_max_ms": 9844.773165999868,
+          "prop_remaining_kg": 3261.013118758048,
+          "compute_time_p95_ms": 60.17467720030238,
+          "events": [
+            [
+              32.290000000002145,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 301.78776947299957
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 103,
+          "dispersions": {
+            "wind_speed": 3.75219879267537,
+            "wind_dir": 1.4094329605366218,
+            "gust_sigma": 1.5,
+            "density_scale": -0.06359805438113897,
+            "thrust_scale": 1.021610718735606,
+            "mass_offset": 793.7443242044203,
+            "pos_offset": [
+              -39.643756641952635,
+              -21.091016286576036,
+              16.15717391462897
+            ],
+            "vel_offset": [
+              2.0129576362924126,
+              -0.6131999688044685,
+              -0.18593396257855765
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -439.6437566419526,
+            178.90898371342396,
+            3016.157173914629
+          ],
+          "initial_vel": [
+            32.01295763629241,
+            -15.61319996880447,
+            -180.18593396257856
+          ],
+          "initial_lateral_offset": 474.6525647330041,
+          "t_end": 34.24000000000176,
+          "fuel_used_kg": 7075.407040313419,
+          "fallback_count": 1,
+          "vertical_speed": 1.4932255017021074,
+          "lateral_speed": 0.06837269440745689,
+          "tilt_angle_deg": 0.5994659240729019,
+          "lateral_offset": 3.024987795917288,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.1052323084680861,
+          "rms_lateral_offset": 196.5023417599631,
+          "compute_time_mean_ms": 28.013463945089867,
+          "compute_time_max_ms": 1275.8700419999514,
+          "prop_remaining_kg": 2924.5929596865803,
+          "compute_time_p95_ms": 56.8095041998731,
+          "events": [
+            [
+              34.24000000000176,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 329.12977188900004
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 105,
+          "dispersions": {
+            "wind_speed": 7.658344003218534,
+            "wind_dir": 6.229525493963413,
+            "gust_sigma": 1.5,
+            "density_scale": -0.08065410891067526,
+            "thrust_scale": 1.0004022605061853,
+            "mass_offset": -229.905527707839,
+            "pos_offset": [
+              -29.3983763953355,
+              38.33688233707825,
+              4.048287988329072
+            ],
+            "vel_offset": [
+              1.1220446055837465,
+              -2.146384124079624,
+              0.5605902322153291
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -429.3983763953355,
+            238.33688233707824,
+            3004.048287988329
+          ],
+          "initial_vel": [
+            31.122044605583746,
+            -17.146384124079624,
+            -179.43940976778467
+          ],
+          "initial_lateral_offset": 491.1083741223606,
+          "t_end": 30.800000000002015,
+          "fuel_used_kg": 6356.417557785724,
+          "fallback_count": 0,
+          "vertical_speed": 1.7395602995590624,
+          "lateral_speed": 0.12480433993440747,
+          "tilt_angle_deg": 1.1436782367132479,
+          "lateral_offset": 2.8027295688849794,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 7.995110105308216,
+          "control_effort": 0.034206474205441394,
+          "rms_lateral_offset": 201.4152989417065,
+          "compute_time_mean_ms": 29.022249740275534,
+          "compute_time_max_ms": 1493.2412620000832,
+          "prop_remaining_kg": 3643.582442214276,
+          "compute_time_p95_ms": 60.493326899813766,
+          "events": [
+            [
+              30.800000000002015,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 287.027439857
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 106,
+          "dispersions": {
+            "wind_speed": 11.788894265560028,
+            "wind_dir": 0.25384164706923557,
+            "gust_sigma": 1.5,
+            "density_scale": -0.07544266203381284,
+            "thrust_scale": 0.9978559277876479,
+            "mass_offset": 1031.061894018843,
+            "pos_offset": [
+              -36.12006862558136,
+              -17.439481869883657,
+              -30.829225521098756
+            ],
+            "vel_offset": [
+              -1.7835667480125297,
+              -4.447522536534479,
+              1.3591484771254647
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                10.54864568494224,
+                20.54864568494224
+              ]
+            ]
+          },
+          "initial_pos": [
+            -436.1200686255814,
+            182.56051813011635,
+            2969.1707744789014
+          ],
+          "initial_vel": [
+            28.21643325198747,
+            -19.44752253653448,
+            -178.64085152287453
+          ],
+          "initial_lateral_offset": 472.78859656078674,
+          "t_end": 30.58000000000198,
+          "fuel_used_kg": 6539.183058478735,
+          "fallback_count": 2,
+          "vertical_speed": 1.474937788653106,
+          "lateral_speed": 0.5540660239585387,
+          "tilt_angle_deg": 1.6077041251462867,
+          "lateral_offset": 2.7549214451354236,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.10060515175191592,
+          "rms_lateral_offset": 196.0935575053316,
+          "compute_time_mean_ms": 23.079486967302156,
+          "compute_time_max_ms": 1254.5111610006643,
+          "prop_remaining_kg": 3460.816941521265,
+          "compute_time_p95_ms": 52.427876999900036,
+          "events": [
+            [
+              30.58000000000198,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 249.9671844100003
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 108,
+          "dispersions": {
+            "wind_speed": 10.27192580794314,
+            "wind_dir": 3.9727019656844296,
+            "gust_sigma": 1.5,
+            "density_scale": -0.07641888860807185,
+            "thrust_scale": 0.9910379611706085,
+            "mass_offset": -576.9582632506351,
+            "pos_offset": [
+              -42.41644884865817,
+              -2.352698239088866,
+              39.38003173443629
+            ],
+            "vel_offset": [
+              -0.5873657080786563,
+              1.1823308584991654,
+              0.32715882338734037
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                14.438217914455793,
+                24.43821791445579
+              ]
+            ]
+          },
+          "initial_pos": [
+            -442.41644884865815,
+            197.64730176091115,
+            3039.380031734436
+          ],
+          "initial_vel": [
+            29.412634291921343,
+            -13.817669141500835,
+            -179.67284117661265
+          ],
+          "initial_lateral_offset": 484.5583247713592,
+          "t_end": 31.28000000000209,
+          "fuel_used_kg": 6414.895848118906,
+          "fallback_count": 3,
+          "vertical_speed": 1.7922715165166934,
+          "lateral_speed": 3.027460089457205,
+          "tilt_angle_deg": 2.058742655340421,
+          "lateral_offset": 3.8754016488189853,
+          "success": false,
+          "failure_mode": "lateral_velocity",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.23980489688754097,
+          "rms_lateral_offset": 223.16205325034053,
+          "compute_time_mean_ms": 20.938669342710227,
+          "compute_time_max_ms": 1357.2168040000179,
+          "prop_remaining_kg": 3585.104151881094,
+          "compute_time_p95_ms": 53.292405999854964,
+          "events": [
+            [
+              31.28000000000209,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 231.28436176000014
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 107,
+          "dispersions": {
+            "wind_speed": 7.7824310328030935,
+            "wind_dir": 3.0014058001707737,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0005474763838493046,
+            "thrust_scale": 1.0140870331221297,
+            "mass_offset": -19.59531980932419,
+            "pos_offset": [
+              -42.34670387989369,
+              -8.439658977182255,
+              48.957719098854994
+            ],
+            "vel_offset": [
+              -3.3279320085566533,
+              3.165777412765104,
+              -2.706470246620525
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -442.3467038798937,
+            191.56034102281774,
+            3048.957719098855
+          ],
+          "initial_vel": [
+            26.672067991443345,
+            -11.834222587234896,
+            -182.7064702466205
+          ],
+          "initial_lateral_offset": 482.0435360900347,
+          "t_end": 29.99000000000189,
+          "fuel_used_kg": 6668.450012212554,
+          "fallback_count": 3,
+          "vertical_speed": 31.821018380199067,
+          "lateral_speed": 16.545203849153435,
+          "tilt_angle_deg": 62.8616428483451,
+          "lateral_offset": 26.79264042530589,
+          "success": false,
+          "failure_mode": "hard_landing",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.5767148028517499,
+          "rms_lateral_offset": 260.6871109752281,
+          "compute_time_mean_ms": 26.428861894624795,
+          "compute_time_max_ms": 8048.542642000029,
+          "prop_remaining_kg": 3331.5499877874463,
+          "compute_time_p95_ms": 52.46911960039137,
+          "events": [
+            [
+              29.99000000000189,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 233.06654552199961
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 109,
+          "dispersions": {
+            "wind_speed": 6.524906987013351,
+            "wind_dir": 5.28672769587761,
+            "gust_sigma": 1.5,
+            "density_scale": 0.05001521512888743,
+            "thrust_scale": 0.9898981256764824,
+            "mass_offset": 220.34192514999148,
+            "pos_offset": [
+              -30.549876275186982,
+              -34.8557112759007,
+              0.3886259951500577
+            ],
+            "vel_offset": [
+              0.4263469379909388,
+              4.994093803265265,
+              4.838589035135106
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -430.549876275187,
+            165.14428872409928,
+            3000.38862599515
+          ],
+          "initial_vel": [
+            30.42634693799094,
+            -10.005906196734735,
+            -175.1614109648649
+          ],
+          "initial_lateral_offset": 461.135372812331,
+          "t_end": 31.640000000002146,
+          "fuel_used_kg": 6662.569123435721,
+          "fallback_count": 1,
+          "vertical_speed": 1.594021944461681,
+          "lateral_speed": 0.11753915458829457,
+          "tilt_angle_deg": 1.8558816143636825,
+          "lateral_offset": 2.5869161767553788,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.08399201420191287,
+          "rms_lateral_offset": 193.17923793354646,
+          "compute_time_mean_ms": 15.436586431093138,
+          "compute_time_max_ms": 1118.512381999608,
+          "prop_remaining_kg": 3337.430876564279,
+          "compute_time_p95_ms": 36.970346000089194,
+          "events": [
+            [
+              31.640000000002146,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 202.08293577800032
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 110,
+          "dispersions": {
+            "wind_speed": 11.165913738123601,
+            "wind_dir": 3.2197415378935696,
+            "gust_sigma": 1.5,
+            "density_scale": 0.04250466610447978,
+            "thrust_scale": 1.0001334298080826,
+            "mass_offset": -577.532760631855,
+            "pos_offset": [
+              37.635468021920076,
+              -43.11992945416997,
+              20.262626384354974
+            ],
+            "vel_offset": [
+              -4.020995088104451,
+              -0.5432085018130328,
+              0.2465743067950923
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                12.118083651832361,
+                22.11808365183236
+              ]
+            ]
+          },
+          "initial_pos": [
+            -362.3645319780799,
+            156.88007054583002,
+            3020.262626384355
+          ],
+          "initial_vel": [
+            25.97900491189555,
+            -15.543208501813034,
+            -179.75342569320492
+          ],
+          "initial_lateral_offset": 394.86631987314075,
+          "t_end": 28.40000000000164,
+          "fuel_used_kg": 6281.8955984767745,
+          "fallback_count": 3,
+          "vertical_speed": 21.80554655192535,
+          "lateral_speed": 20.554136758134696,
+          "tilt_angle_deg": 41.89985356949214,
+          "lateral_offset": 21.641100749475672,
+          "success": false,
+          "failure_mode": "hard_landing",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.47499112156010503,
+          "rms_lateral_offset": 212.86915176995964,
+          "compute_time_mean_ms": 7.566087184494803,
+          "compute_time_max_ms": 149.56100399922434,
+          "prop_remaining_kg": 3718.1044015232255,
+          "compute_time_p95_ms": 17.394977600451963,
+          "events": [
+            [
+              28.40000000000164,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 53.767532913999275
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 112,
+          "dispersions": {
+            "wind_speed": 1.3975081560918645,
+            "wind_dir": 5.303973326787137,
+            "gust_sigma": 1.5,
+            "density_scale": 0.05973468486493133,
+            "thrust_scale": 0.9710437969178297,
+            "mass_offset": -939.178284930658,
+            "pos_offset": [
+              -0.35436542013454186,
+              32.70988132606887,
+              -23.81011551428559
+            ],
+            "vel_offset": [
+              -1.8710694601983926,
+              2.2240675466882465,
+              -4.50572848989308
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                16.575779561123674,
+                26.575779561123674
+              ]
+            ]
+          },
+          "initial_pos": [
+            -400.3543654201345,
+            232.70988132606885,
+            2976.1898844857146
+          ],
+          "initial_vel": [
+            28.12893053980161,
+            -12.775932453311754,
+            -184.50572848989307
+          ],
+          "initial_lateral_offset": 463.07397549176915,
+          "t_end": 26.310000000001313,
+          "fuel_used_kg": 5899.163453148455,
+          "fallback_count": 1,
+          "vertical_speed": 15.75514545044117,
+          "lateral_speed": 19.298884672066993,
+          "tilt_angle_deg": 3.245467163497363,
+          "lateral_offset": 21.84168091818336,
+          "success": false,
+          "failure_mode": "hard_landing",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.45883008215030013,
+          "rms_lateral_offset": 228.06634587067114,
+          "compute_time_mean_ms": 8.126923269478924,
+          "compute_time_max_ms": 171.9191160000264,
+          "prop_remaining_kg": 4100.836546851545,
+          "compute_time_p95_ms": 17.502679500012164,
+          "events": [
+            [
+              26.310000000001313,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 50.66680440100026
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 111,
+          "dispersions": {
+            "wind_speed": 1.8439362714279945,
+            "wind_dir": 1.0637640130423889,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0011928628996531188,
+            "thrust_scale": 1.009487132407225,
+            "mass_offset": 594.0295469939582,
+            "pos_offset": [
+              -39.07725411191446,
+              29.759652636523427,
+              46.87459069451401
+            ],
+            "vel_offset": [
+              -2.5305066394368767,
+              -3.0248617089935204,
+              -1.6172446393154938
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -439.07725411191444,
+            229.7596526365234,
+            3046.874590694514
+          ],
+          "initial_vel": [
+            27.469493360563124,
+            -18.02486170899352,
+            -181.6172446393155
+          ],
+          "initial_lateral_offset": 495.55860708710793,
+          "t_end": 32.43000000000212,
+          "fuel_used_kg": 6849.33806978904,
+          "fallback_count": 3,
+          "vertical_speed": 1.5733498913307338,
+          "lateral_speed": 0.35239004221736053,
+          "tilt_angle_deg": 1.4997845150353935,
+          "lateral_offset": 4.285826652784343,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.06754701251688895,
+          "rms_lateral_offset": 222.788996795842,
+          "compute_time_mean_ms": 8.204750935859328,
+          "compute_time_max_ms": 157.41605299990624,
+          "prop_remaining_kg": 3150.6619302109602,
+          "compute_time_p95_ms": 18.246318000819883,
+          "events": [
+            [
+              32.43000000000212,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 63.39259243200013
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 113,
+          "dispersions": {
+            "wind_speed": 0.8469372753667006,
+            "wind_dir": 0.9479375692569203,
+            "gust_sigma": 1.5,
+            "density_scale": -0.07104744842395352,
+            "thrust_scale": 1.0066296021557029,
+            "mass_offset": -89.8357861598978,
+            "pos_offset": [
+              49.88557098018387,
+              -0.32705008150962556,
+              -32.95412086414695
+            ],
+            "vel_offset": [
+              -4.547734283078258,
+              2.093158691816363,
+              -0.11741340783181009
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -350.11442901981616,
+            199.67294991849036,
+            2967.045879135853
+          ],
+          "initial_vel": [
+            25.452265716921744,
+            -12.906841308183637,
+            -180.1174134078318
+          ],
+          "initial_lateral_offset": 403.05012137080894,
+          "t_end": 30.83000000000202,
+          "fuel_used_kg": 6449.8483119014345,
+          "fallback_count": 2,
+          "vertical_speed": 1.7934789418226849,
+          "lateral_speed": 0.053007884385364,
+          "tilt_angle_deg": 2.432715518043099,
+          "lateral_offset": 4.882264178683451,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.22455573173076177,
+          "rms_lateral_offset": 175.85287398039603,
+          "compute_time_mean_ms": 8.049717777483352,
+          "compute_time_max_ms": 220.20231099941157,
+          "prop_remaining_kg": 3550.151688098566,
+          "compute_time_p95_ms": 17.71777900012239,
+          "events": [
+            [
+              30.83000000000202,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 60.56145860699962
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 114,
+          "dispersions": {
+            "wind_speed": 8.734659294116224,
+            "wind_dir": 0.8932120760217,
+            "gust_sigma": 1.5,
+            "density_scale": -0.013323154855990157,
+            "thrust_scale": 1.0122467308922016,
+            "mass_offset": 240.43632099580427,
+            "pos_offset": [
+              14.529628780998365,
+              -6.507522737746655,
+              1.3406937327882886
+            ],
+            "vel_offset": [
+              3.9256111952047696,
+              -3.907273978168675,
+              -3.3990701139589596
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                10.080864444673614,
+                20.080864444673615
+              ]
+            ]
+          },
+          "initial_pos": [
+            -385.47037121900166,
+            193.49247726225335,
+            3001.340693732788
+          ],
+          "initial_vel": [
+            33.925611195204766,
+            -18.907273978168675,
+            -183.39907011395897
+          ],
+          "initial_lateral_offset": 431.3081796636815,
+          "t_end": 31.900000000002187,
+          "fuel_used_kg": 6776.121220743069,
+          "fallback_count": 4,
+          "vertical_speed": 1.6582326193628065,
+          "lateral_speed": 0.38461798306375206,
+          "tilt_angle_deg": 1.0040063685908454,
+          "lateral_offset": 3.100120468547432,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.26619378662063864,
+          "rms_lateral_offset": 163.73247543165076,
+          "compute_time_mean_ms": 7.261637349231969,
+          "compute_time_max_ms": 150.4540050000287,
+          "prop_remaining_kg": 3223.8787792569306,
+          "compute_time_p95_ms": 16.246497349766248,
+          "events": [
+            [
+              31.900000000002187,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 62.762480884999604
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 115,
+          "dispersions": {
+            "wind_speed": 8.428056290265364,
+            "wind_dir": 3.7932159676421118,
+            "gust_sigma": 1.5,
+            "density_scale": 0.008833812189565735,
+            "thrust_scale": 1.0192688334707793,
+            "mass_offset": -1108.286643645254,
+            "pos_offset": [
+              -38.218565937067126,
+              12.563882480009113,
+              -9.026141953789931
+            ],
+            "vel_offset": [
+              -2.826968020849725,
+              -0.6752613914570116,
+              -3.496069029904465
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -438.2185659370671,
+            212.5638824800091,
+            2990.97385804621
+          ],
+          "initial_vel": [
+            27.173031979150274,
+            -15.675261391457012,
+            -183.49606902990448
+          ],
+          "initial_lateral_offset": 487.051245421788,
+          "t_end": 32.67000000000207,
+          "fuel_used_kg": 6715.108507619638,
+          "fallback_count": 6,
+          "vertical_speed": 1.8986005010504758,
+          "lateral_speed": 2.599586541506449,
+          "tilt_angle_deg": 1.5980179156538463,
+          "lateral_offset": 4.929049345865127,
+          "success": false,
+          "failure_mode": "lateral_velocity",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.2263240275797366,
+          "rms_lateral_offset": 236.15453601432455,
+          "compute_time_mean_ms": 5.519678688999495,
+          "compute_time_max_ms": 117.0471590003217,
+          "prop_remaining_kg": 3284.891492380362,
+          "compute_time_p95_ms": 10.55416239996702,
+          "events": [
+            [
+              32.67000000000207,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 54.30109322399949
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 116,
+          "dispersions": {
+            "wind_speed": 2.068437190456324,
+            "wind_dir": 5.5098641462258575,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0914356318864849,
+            "thrust_scale": 1.027051433350093,
+            "mass_offset": 17.060391714586498,
+            "pos_offset": [
+              9.832981720389569,
+              -19.983682401240422,
+              4.707204385810968
+            ],
+            "vel_offset": [
+              -1.87045367214153,
+              0.01819531109316408,
+              -1.830743856891691
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                11.426016819941264,
+                21.426016819941264
+              ]
+            ]
+          },
+          "initial_pos": [
+            -390.16701827961043,
+            180.01631759875957,
+            3004.707204385811
+          ],
+          "initial_vel": [
+            28.12954632785847,
+            -14.981804688906836,
+            -181.8307438568917
+          ],
+          "initial_lateral_offset": 429.6931192781883,
+          "t_end": 32.77000000000205,
+          "fuel_used_kg": 6953.165027661602,
+          "fallback_count": 4,
+          "vertical_speed": 1.4498719925101171,
+          "lateral_speed": 0.6523877916359716,
+          "tilt_angle_deg": 0.7610333799482514,
+          "lateral_offset": 2.5353780987873837,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.11970477952886899,
+          "rms_lateral_offset": 180.6584782815591,
+          "compute_time_mean_ms": 5.610078576143584,
+          "compute_time_max_ms": 157.13981399949262,
+          "prop_remaining_kg": 3046.834972338398,
+          "compute_time_p95_ms": 11.116482600118593,
+          "events": [
+            [
+              32.77000000000205,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 51.17841969100027
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 118,
+          "dispersions": {
+            "wind_speed": 11.168275735502027,
+            "wind_dir": 5.89087526022103,
+            "gust_sigma": 1.5,
+            "density_scale": -0.04448915419917154,
+            "thrust_scale": 0.9829283371638009,
+            "mass_offset": 67.45292007499017,
+            "pos_offset": [
+              -46.33228129112011,
+              17.26456290413141,
+              42.81282734619147
+            ],
+            "vel_offset": [
+              -0.6227488720762402,
+              3.7664280241722423,
+              -4.269220463983476
+            ],
+            "meas_delay": 0.1,
+            "gps_outage_windows": [
+              [
+                16.42081095107159,
+                26.42081095107159
+              ]
+            ]
+          },
+          "initial_pos": [
+            -446.3322812911201,
+            217.26456290413142,
+            3042.8128273461916
+          ],
+          "initial_vel": [
+            29.37725112792376,
+            -11.233571975827758,
+            -184.2692204639835
+          ],
+          "initial_lateral_offset": 496.4034605202293,
+          "t_end": 30.180000000001918,
+          "fuel_used_kg": 6489.754212743859,
+          "fallback_count": 2,
+          "vertical_speed": 1.6183799432853425,
+          "lateral_speed": 0.1898992380002879,
+          "tilt_angle_deg": 2.799758925772023,
+          "lateral_offset": 4.086017841029388,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.3796263248030366,
+          "rms_lateral_offset": 214.13842598304205,
+          "compute_time_mean_ms": 4.791606511598688,
+          "compute_time_max_ms": 76.59908599998744,
+          "prop_remaining_kg": 3510.2457872561404,
+          "compute_time_p95_ms": 8.573448999413813,
+          "events": [
+            [
+              30.180000000001918,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 43.61003721999987
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 117,
+          "dispersions": {
+            "wind_speed": 10.500141120886322,
+            "wind_dir": 0.9919954896755767,
+            "gust_sigma": 1.5,
+            "density_scale": 0.0208122280507735,
+            "thrust_scale": 0.9916279762678859,
+            "mass_offset": 29.644540941204326,
+            "pos_offset": [
+              -19.755394544522474,
+              19.784529133869555,
+              -10.843074735923395
+            ],
+            "vel_offset": [
+              -3.1869674581196983,
+              0.5757658262303869,
+              3.619110559005925
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -419.75539454452246,
+            219.78452913386957,
+            2989.1569252640766
+          ],
+          "initial_vel": [
+            26.8130325418803,
+            -14.424234173769612,
+            -176.38088944099408
+          ],
+          "initial_lateral_offset": 473.8141307473053,
+          "t_end": 31.880000000002184,
+          "fuel_used_kg": 6778.628115621661,
+          "fallback_count": 4,
+          "vertical_speed": 1.568093156984917,
+          "lateral_speed": 0.280170671968349,
+          "tilt_angle_deg": 2.4147532030610384,
+          "lateral_offset": 8.184944732513735,
+          "success": true,
+          "failure_mode": "success",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.3228519887545249,
+          "rms_lateral_offset": 220.6132106744791,
+          "compute_time_mean_ms": 4.919862596601172,
+          "compute_time_max_ms": 115.8819879992734,
+          "prop_remaining_kg": 3221.3718843783386,
+          "compute_time_p95_ms": 8.775890500328376,
+          "events": [
+            [
+              31.880000000002184,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 46.821588788000554
+        },
+        {
+          "kind": "sweep",
+          "guidance": "optimal",
+          "controller": "mpc",
+          "nav": "ekf",
+          "seed": 119,
+          "dispersions": {
+            "wind_speed": 11.474884792495317,
+            "wind_dir": 4.599996696646958,
+            "gust_sigma": 1.5,
+            "density_scale": 0.06380350215650546,
+            "thrust_scale": 0.9786132587244898,
+            "mass_offset": 569.7341024497586,
+            "pos_offset": [
+              -47.6124520124269,
+              6.339638675210502,
+              -48.33216391992882
+            ],
+            "vel_offset": [
+              0.599145681210854,
+              4.773025363670927,
+              -3.6480459453503524
+            ],
+            "meas_delay": 0.1
+          },
+          "initial_pos": [
+            -447.6124520124269,
+            206.3396386752105,
+            2951.667836080071
+          ],
+          "initial_vel": [
+            30.599145681210853,
+            -10.226974636329073,
+            -183.64804594535036
+          ],
+          "initial_lateral_offset": 492.88229191683644,
+          "t_end": 29.99000000000189,
+          "fuel_used_kg": 6648.307046782273,
+          "fallback_count": 2,
+          "vertical_speed": 1.678634284852227,
+          "lateral_speed": 3.635016585920538,
+          "tilt_angle_deg": 0.48726296707420225,
+          "lateral_offset": 2.7474034899816377,
+          "success": false,
+          "failure_mode": "lateral_velocity",
+          "max_gimbal_deg": 8.0,
+          "control_effort": 0.22472666489827053,
+          "rms_lateral_offset": 233.02662287156136,
+          "compute_time_mean_ms": 4.868971616532596,
+          "compute_time_max_ms": 188.8714529995923,
+          "prop_remaining_kg": 3351.692953217727,
+          "compute_time_p95_ms": 8.20797100004711,
+          "events": [
+            [
+              29.99000000000189,
+              "touchdown"
+            ]
+          ],
+          "wall_time_s": 42.03471634200014
+        }
+      ]
+    }
+  },
+  "wall_time_s": 1438.8733411780004
+}
