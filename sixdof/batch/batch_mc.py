@@ -30,15 +30,23 @@ Structural fidelity to the single-run pipeline
   <= 25 deg tilt, terminal velocity target switch at 30 m with the aim
   point 0.5 m below the surface, the kinematic t_go estimate
   ``t_go = -2 dz / (v_z + v_fz)`` clamped to [0.5, 120] s and scaled by
-  1.15 for brake margin, a shorter lateral convergence horizon
-  ``T_lat = max(0.5 t_go, 2)``, lateral-velocity damping below the
-  30 m terminal gate / short horizons, and the altitude-tapered
-  accel tilt cap ``|a_lat| <= a_z tan(cap)`` with cap 35 deg -> 3 deg
-  below 150 m plus the 0.95 T_max/m magnitude clamp.
+  1.15 for brake margin, the bounded-approach-speed lateral servo
+  (``v_des = clip((r_f - r)/tau_app, +-25 m/s) * fade`` with
+  ``tau_app = clip(0.35 t_go, 4, 12)`` s and ``fade`` ramping 0->1 over
+  0-100 m, gain ``kv_lat = 0.45`` 1/s), the altitude-tapered accel tilt
+  cap ``|a_lat| <= a_z tan(cap)`` with cap 35 deg -> 3 deg below 150 m
+  plus the 0.95 T_max/m magnitude clamp, and the ``_filter_lateral``
+  first-order low-pass (tau = 1.5 s) on the lateral command channels
+  (each run's filter initializes to the unfiltered command on its first
+  powered tick, matching the scalar ``_a_filt is None`` init).
 * Same geometric attitude law: ``M = +K_R e - K_w w + w x (J w)`` with
   ``K_R = 4 J``, ``K_w = 2.5 J``, the ``M_i = -T l sin(d_i)`` gimbal
   inversion with anti-saturation scaling, and pseudo-RCS PD
   (k_r = 3, k_w = 6) clipped to (5e3, 4e4, 4e4) N m during coast.
+  ``powered`` mirrors ``gcmd.engine_on``: it latches at ignition and is
+  *not* cleared by a dead engine (fuel exhaustion / failure), so dead
+  runs keep tracking the guidance attitude with the gimbal (harmless at
+  zero thrust) and get no RCS torque -- identical to the scalar stack.
 * Same actuator models: first-order throttle lag (tau = 0.1 s),
   second-order gimbal servo (wn = 8 pi, zeta = 0.7, rate limit),
   first-order RCS lag (tau = 0.02 s).
@@ -203,8 +211,11 @@ def _q_from_two(a, b):
         axis = _cross3(an[anti], np.broadcast_to(_XB, (k, 3)))
         small = _norm(axis) < 1e-6
         if small.any():
+            # Upstream fallback axis is +y ([0,1,0]), not +z.
             axis[small] = _cross3(
-                an[anti][small], np.broadcast_to(_ZH, (int(small.sum()), 3)))
+                an[anti][small],
+                np.broadcast_to(np.array([0.0, 1.0, 0.0]),
+                                (int(small.sum()), 3)))
         axis = axis / np.maximum(_norm(axis)[:, None], 1e-12)
         q[anti, 0] = 0.0
         q[anti, 1:] = axis
@@ -401,8 +412,10 @@ class BatchMonteCarlo:
         self.tilt_cap_min = np.radians(3.0)
         self.h_cap_ref = 150.0             # altitude taper for the tilt cap
         self.t_go_scale = 1.15             # brake margin (longer plan t_go)
-        self.lat_tgo_frac = 0.5            # lateral converge horizon factor
-        self.t_lat_min = 2.0
+        # Bounded-approach-speed lateral servo (PoweredDescentBase._lateral_servo).
+        self.v_lat_max = 25.0              # bounded approach speed [m/s]
+        self.kv_lat = 0.45                 # lateral velocity-servo gain [1/s]
+        self.lat_filt_tau = 1.5            # _filter_lateral low-pass tau [s]
         self.ignite_margin = 150.0
         self.ignite_decel_frac = 0.85
 
@@ -548,6 +561,7 @@ class BatchMonteCarlo:
         gim_dd = np.zeros((n, 2))
         rcs_cmd = np.zeros((n, 3))
         rcs_val = np.zeros((n, 3))
+        a_filt = np.zeros((n, 2))      # _filter_lateral state (per-run)
 
         # --- outputs ---
         td_time = np.full(n, np.nan)
@@ -628,7 +642,7 @@ class BatchMonteCarlo:
                 powered = self._control_update(
                     r_lag, v_lag, q, w, m, cg, Jd, p, g_vec, D,
                     active, ignited, dead,
-                    thr_cmd, gim_cmd, rcs_cmd)
+                    thr_cmd, gim_cmd, rcs_cmd, a_filt)
             burning = powered & ~dead & active
 
             # ---------------- actuators ----------------
@@ -811,7 +825,7 @@ class BatchMonteCarlo:
     # ------------------------------------------------------------------
     def _control_update(self, r_m, v_m, q, w, m, cg, Jd, p, g_vec, D,
                         active, ignited, dead,
-                        thr_cmd, gim_cmd, rcs_cmd):
+                        thr_cmd, gim_cmd, rcs_cmd, a_filt):
         """One vectorized guidance+control tick; returns `powered` mask.
 
         ``r_m``/``v_m`` are the lagged measured position/velocity;
@@ -831,7 +845,13 @@ class BatchMonteCarlo:
         h_ig = vz_m * vz_m / (2.0 * a_net) + self.ignite_margin
         newly = active & ~ignited & (vz_m < 0.0) & (z_m <= h_ig)
         ignited |= newly
-        powered = active & ignited & ~dead
+        # powered mirrors upstream gcmd.engine_on: latched at ignition and
+        # NOT cleared by a dead engine -- the scalar guidance keeps
+        # requesting the burn (thrust is zeroed by `burning` downstream),
+        # the controller keeps tracking the guidance attitude, and no RCS
+        # torque is applied (GeometricController only fires RCS when
+        # engine_on is False).
+        powered = active & ignited
 
         # --- ZEM/ZEV on the powered subset ---
         # Terminal aim point sits 0.5 m below the surface (mirrors
@@ -847,34 +867,27 @@ class BatchMonteCarlo:
             vf = np.zeros((ip.size, 3))
             vf[:, 2] = np.where(term, -1.5, -3.0)
             gs = g_vec[ip]
-            # Vertical ZEM/ZEV channel on T_z; lateral channels converge on
-            # the shorter horizon T_lat so the divert finishes high up
-            # (ZEMZEVGuidance.compute: t_go_scale, lat_tgo_frac, t_lat_min).
             t_go = self._t_go(rs, vs, rf, vf) * self.t_go_scale
             T_z = np.maximum(t_go, 0.5)
-            T_lat = np.maximum(t_go * self.lat_tgo_frac, self.t_lat_min)
             g_z = gs[:, 2]
             zem_z = rf[:, 2] - rs[:, 2] - vs[:, 2] * T_z - 0.5 * g_z * T_z**2
             zev_z = vf[:, 2] - vs[:, 2] - g_z * T_z
             ac = a_cmd[ip]
             ac[:] = 0.0
             ac[:, 2] = 6.0 * zem_z / T_z**2 - 2.0 * zev_z / T_z
-            # Terminal / short-horizon runs damp lateral velocity instead of
-            # chasing the pad (1/t^2 gains would demand untrackable tilts);
-            # a weak fading pull keeps small offsets from drifting.
-            damp = term | (T_lat < 6.0)
-            pull = 0.05 * np.clip(rs[:, 2] / 60.0, 0.25, 1.0)
+            # Bounded-approach-speed lateral servo
+            # (PoweredDescentBase._lateral_servo): approach-velocity demand
+            # (rf - r)/tau_app capped at v_lat_max and faded to zero below
+            # ~100 m, tracked with gain kv_lat.  Keeps the thrust azimuth
+            # steady toward the pad -- the classic 6*ZEM/T^2 - 2*ZEV/T
+            # lateral law demands ~180 deg azimuth slews the slow TVC
+            # attitude loop cannot track.
+            tau_app = np.clip(0.35 * t_go, 4.0, 12.0)
+            fade = np.clip(rs[:, 2] / 100.0, 0.0, 1.0)
             for k in (0, 1):
-                if damp.any():
-                    ac[damp, k] = (0.4 * (vf[damp, k] - vs[damp, k])
-                                   + pull[damp] * (rf[damp, k] - rs[damp, k]))
-                nd = ~damp
-                if nd.any():
-                    zem_k = (rf[nd, k] - rs[nd, k]
-                             - vs[nd, k] * T_lat[nd])
-                    zev_k = vf[nd, k] - vs[nd, k]
-                    ac[nd, k] = (6.0 * zem_k / T_lat[nd]**2
-                                 - 2.0 * zev_k / T_lat[nd])
+                v_des = (np.clip((rf[:, k] - rs[:, k]) / tau_app,
+                                 -self.v_lat_max, self.v_lat_max) * fade)
+                ac[:, k] = self.kv_lat * (v_des - vs[:, k])
             # _shape_accel: altitude-tapered lateral tilt cap
             # (|a_lat| <= a_z tan(cap_eff), cap_eff: 35 deg high -> ~3 deg
             # below 150 m), then clamp |a_cmd| at 0.95 T_max/m.
@@ -892,6 +905,19 @@ class BatchMonteCarlo:
             am = _norm(ac)
             s_am = np.where(am > amax, amax / np.maximum(am, 1e-9), 1.0)
             ac *= s_am[:, None]
+            # _filter_lateral (PoweredDescentBase): first-order low-pass on
+            # the lateral channels only, tau = 1.5 s.  Each run's filter
+            # state initializes to the *unfiltered* command on its first
+            # powered tick (upstream `_a_filt is None` init -> passthrough).
+            alpha_f = min(self.dec * self.dt / self.lat_filt_tau, 1.0)
+            af = a_filt[ip]
+            is_new = newly[ip]
+            af[is_new] = ac[is_new, :2]
+            cont = ~is_new
+            af[cont] += alpha_f * (ac[cont, :2] - af[cont])
+            a_filt[ip] = af
+            ac[:, 0] = af[:, 0]
+            ac[:, 1] = af[:, 1]
             a_cmd[ip] = ac
         self._last_acmd = a_cmd
 
@@ -915,13 +941,17 @@ class BatchMonteCarlo:
         cos_t = np.clip(np.sum(des * _ZH, axis=1), -1.0, 1.0)
         over = cos_t < np.cos(self.tilt_max)
         if over.any():
-            horiz = des[over] - cos_t[over, None] * _ZH
-            hn = _norm(horiz)[:, None]
-            horiz = np.where(hn > 1e-9, horiz / np.maximum(hn, 1e-9),
-                             np.broadcast_to(np.array([1.0, 0.0, 0.0]),
-                                             (int(over.sum()), 3)))
-            des[over] = (_ZH * np.cos(self.tilt_max)
-                         + horiz * np.sin(self.tilt_max))
+            io = np.flatnonzero(over)
+            horiz = des[io] - cos_t[io, None] * _ZH
+            hn = _norm(horiz)
+            okh = hn > 1e-9
+            des_over = (_ZH * np.cos(self.tilt_max)
+                        + (horiz / np.maximum(hn[:, None], 1e-9))
+                        * np.sin(self.tilt_max))
+            # Degenerate case (desired ~ -z_B): upstream falls back to
+            # upright, not a 25 deg tilt toward an arbitrary azimuth.
+            des_over[~okh] = _ZH
+            des[io] = des_over
         q_des_coast = _q_from_two(np.broadcast_to(_XB, (n, 3)), des)
         q_des = np.where(powered[:, None], q_des_pow, q_des_coast)
 
@@ -951,6 +981,14 @@ class BatchMonteCarlo:
         M_rcs = self.rcs_k_r * Jd * e - self.rcs_k_w * Jd * w
         M_rcs = np.clip(M_rcs, -self.rcs_max, self.rcs_max)
         rcs_cmd[:] = np.where((active & ~powered)[:, None], M_rcs, 0.0)
+        # ActuatorSuite.step also jitters the throttle command by
+        # sigma = control_noise each step; applied to the (ZOH) powered
+        # command only -- non-powered runs keep thr_cmd = 0 so the batch
+        # does not reproduce the scalar sim's coast sputter quirk (a
+        # positive lagged throttle value would clamp up to the floor).
+        if self.disp.control_noise > 0.0 and powered.any():
+            thr_cmd[powered] += (self.disp.control_noise
+                                 * rng.standard_normal(int(powered.sum())))
         return powered
 
     # ------------------------------------------------------------------

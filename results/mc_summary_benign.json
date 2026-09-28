@@ -1,0 +1,181 @@
+{
+  "n": 20000,
+  "runtime_s": 391.8630151590005,
+  "dt": 0.02,
+  "seed": 11,
+  "success_rate": 0.4501,
+  "n_success": 9002,
+  "failure_counts": {
+    "success": 9002,
+    "hard_landing": 10277,
+    "lateral_velocity": 624,
+    "tipover": 12,
+    "miss_pad": 81,
+    "fuel_exhausted": 4,
+    "engine_failure": 0,
+    "gps_outage_diverged": 0,
+    "timeout": 0
+  },
+  "failure_rates": {
+    "success": 0.4501,
+    "hard_landing": 0.51385,
+    "lateral_velocity": 0.0312,
+    "tipover": 0.0006,
+    "miss_pad": 0.00405,
+    "fuel_exhausted": 0.0002,
+    "engine_failure": 0.0,
+    "gps_outage_diverged": 0.0,
+    "timeout": 0.0
+  },
+  "touchdown": {
+    "vertical_speed": {
+      "p50": 3.0451823652459225,
+      "p95": 5.862130321079653,
+      "p99": 6.835742612489901,
+      "mean": 3.254491742070876
+    },
+    "lateral_speed": {
+      "p50": 0.7338462391816124,
+      "p95": 1.7661081267006737,
+      "p99": 2.454224902131816,
+      "mean": 0.8359229640279278
+    },
+    "tilt_deg": {
+      "p50": 1.5637476134760635,
+      "p95": 3.1762234790604618,
+      "p99": 4.401668512469524,
+      "mean": 1.6812844471492447
+    },
+    "lateral_offset": {
+      "p50": 3.740343058569244,
+      "p95": 7.930836156434439,
+      "p99": 10.21508405120544,
+      "mean": 4.02225782922031
+    },
+    "touchdown_time": {
+      "p50": 32.399999999999466,
+      "p95": 38.800000000000466,
+      "p99": 43.00000000000112,
+      "mean": 33.032996999999654
+    }
+  },
+  "fuel_remaining_frac": {
+    "all": {
+      "p50": 0.3286011491593227,
+      "p95": 0.3784820546993749,
+      "p99": 0.39333403547342644,
+      "mean": 0.3199779508021223
+    },
+    "success": {
+      "p50": 0.3139408499383335,
+      "p95": 0.36573261039704974,
+      "p99": 0.3810678222464079,
+      "mean": 0.30480575831914825
+    },
+    "failure": {
+      "p50": 0.3398640942755422,
+      "p95": 0.383364873898421,
+      "p99": 0.3970144585047598,
+      "mean": 0.33239657934656064
+    }
+  },
+  "gates": [
+    {
+      "n": 20000,
+      "cx": -255.19826337328837,
+      "cy": 128.73166094271755,
+      "semi_major": 31.51391852580415,
+      "semi_minor": 30.60870370983165,
+      "angle_deg": 95.28694374378567,
+      "altitude_m": 2000.0
+    },
+    {
+      "n": 20000,
+      "cx": -195.40719063436646,
+      "cy": 96.14296780480628,
+      "semi_major": 57.09182081889983,
+      "semi_minor": 56.13579559407097,
+      "angle_deg": 134.3182584359923,
+      "altitude_m": 1500.0
+    },
+    {
+      "n": 20000,
+      "cx": -128.20765737743918,
+      "cy": 60.164869887229685,
+      "semi_major": 83.43629721568217,
+      "semi_minor": 76.69505600745958,
+      "angle_deg": 174.35671020954842,
+      "altitude_m": 1000.0
+    },
+    {
+      "n": 20000,
+      "cx": -43.65665400449894,
+      "cy": 20.026730586818385,
+      "semi_major": 61.73830622699663,
+      "semi_minor": 55.59372801704454,
+      "angle_deg": 179.04412700958449,
+      "altitude_m": 500.0
+    },
+    {
+      "n": 20000,
+      "cx": -4.322345886569321,
+      "cy": 2.2548200442009434,
+      "semi_major": 23.191608537371476,
+      "semi_minor": 21.124860615557793,
+      "angle_deg": 157.3312019642184,
+      "altitude_m": 200.0
+    },
+    {
+      "n": 20000,
+      "cx": 0.4847097288013684,
+      "cy": -0.3196476161557276,
+      "semi_major": 7.3841201688588365,
+      "semi_minor": 6.84016628575541,
+      "angle_deg": 164.41941001155536,
+      "altitude_m": 50.0
+    },
+    {
+      "n": 20000,
+      "cx": -2.0654472439387432,
+      "cy": 0.9194456074649219,
+      "semi_major": 8.971406005201192,
+      "semi_minor": 8.214665820970586,
+      "angle_deg": 159.81746594925087,
+      "altitude_m": 0.0
+    }
+  ],
+  "failure_modes": [
+    "success",
+    "hard_landing",
+    "lateral_velocity",
+    "tipover",
+    "miss_pad",
+    "fuel_exhausted",
+    "engine_failure",
+    "gps_outage_diverged",
+    "timeout"
+  ],
+  "wall_time_s": 391.8630151590005,
+  "args": {
+    "n": 20000,
+    "seed": 11,
+    "chunks": 1,
+    "dt": 0.02,
+    "wind_max": 12.0,
+    "density_sigma": 0.1,
+    "mass_sigma": 0.03,
+    "thrust_sigma": 0.03,
+    "gps_outage_prob": 0.0,
+    "engine_fail_prob": 0.0,
+    "control_noise": 0.002,
+    "gust_sigma": 2.0,
+    "ic_sigma_pos": 5.0,
+    "ic_sigma_vel": 1.0,
+    "meas_delay": 0.3,
+    "t_end": 120.0,
+    "out": "results/monte_carlo_benign.npz",
+    "summary": "results/mc_summary_benign.json",
+    "figdir": "/Users/user/6dof/docs/figures",
+    "no_figs": true
+  }
+}
