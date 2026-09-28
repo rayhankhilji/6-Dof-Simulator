@@ -1,0 +1,58 @@
+{
+  "controller": "pid",
+  "nav": "perfect",
+  "seed": 0,
+  "guidance": {
+    "zemzev": {
+      "t_end": 31.880000000002184,
+      "fuel_used_kg": 6643.865119477837,
+      "fallback_count": 0,
+      "vertical_speed": 1.6422688211802194,
+      "lateral_speed": 1.1186097515896696,
+      "tilt_angle_deg": 1.9886701350145077,
+      "lateral_offset": 1.986304220960933,
+      "success": true,
+      "failure_mode": "success",
+      "max_gimbal_deg": 5.746263718569288,
+      "control_effort": 0.02656147418207878,
+      "rms_lateral_offset": 184.63667492932942,
+      "compute_time_mean_ms": 0.2877839676148598,
+      "compute_time_max_ms": 18.55042201350443,
+      "wall_time_s": 15.258061319007538
+    },
+    "poly": {
+      "t_end": 31.880000000002184,
+      "fuel_used_kg": 6643.8651194778395,
+      "fallback_count": 0,
+      "vertical_speed": 1.6422688211802223,
+      "lateral_speed": 1.1186097515896756,
+      "tilt_angle_deg": 1.9886701350141411,
+      "lateral_offset": 1.9863042209608697,
+      "success": true,
+      "failure_mode": "success",
+      "max_gimbal_deg": 5.7462637185692875,
+      "control_effort": 0.02656147418207876,
+      "rms_lateral_offset": 184.63667492932942,
+      "compute_time_mean_ms": 0.2661522405854236,
+      "compute_time_max_ms": 3.5674399987328798,
+      "wall_time_s": 14.991779144998873
+    },
+    "optimal": {
+      "t_end": 31.880000000002184,
+      "fuel_used_kg": 6643.865119477837,
+      "fallback_count": 2,
+      "vertical_speed": 1.6422688211802194,
+      "lateral_speed": 1.1186097515896696,
+      "tilt_angle_deg": 1.9886701350145077,
+      "lateral_offset": 1.986304220960933,
+      "success": true,
+      "failure_mode": "success",
+      "max_gimbal_deg": 5.746263718569288,
+      "control_effort": 0.02656147418207878,
+      "rms_lateral_offset": 184.63667492932942,
+      "compute_time_mean_ms": 0.4977479206529298,
+      "compute_time_max_ms": 38.39952900307253,
+      "wall_time_s": 28.32022837898694
+    }
+  }
+}

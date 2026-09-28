@@ -13,7 +13,7 @@ that the true attitude is recovered via ``q_true = q_nom ⊗ [1, dtheta/2]``
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field  # noqa: F401
 
 import numpy as np
 
@@ -34,6 +34,9 @@ class NavState:
         Error-state covariance (ordering as in module docstring).
     t : float
         Validity time [s].
+    omega_B : (3,) array
+        Estimated body angular rate [rad/s] (gyro minus bias; not part of
+        the error-state covariance).
     """
 
     r_I: np.ndarray
@@ -43,11 +46,13 @@ class NavState:
     gyro_bias: np.ndarray
     P: np.ndarray
     t: float = 0.0
+    omega_B: np.ndarray = field(default_factory=lambda: np.zeros(3))
 
     def copy(self) -> "NavState":
         return NavState(
             self.r_I.copy(), self.v_I.copy(), self.q.copy(),
             self.accel_bias.copy(), self.gyro_bias.copy(), self.P.copy(), self.t,
+            self.omega_B.copy(),
         )
 
 

@@ -12,8 +12,15 @@ Mach = V / a(h),  dynamic pressure q = 0.5 rho V^2.
 
 Force model (body frame):
 - Axial drag: -Cd(M) q S along the relative wind direction in body frame.
-- Normal force: N = Cn_alpha * alpha * q S, perpendicular to x_B in the
-  plane of the relative wind, acting at the center of pressure x_cp.
+- Normal force: N = -Cn_alpha * sin(alpha) * q S * e_n, where ``e_n`` is
+  the direction of the lateral component of ``v_rel_B`` -- i.e. the body
+  is pushed *opposite* its sideways motion through the air (weathervane
+  convention), acting at the center of pressure x_cp. The sin(alpha)
+  factor keeps the small-angle Cn_alpha*alpha slope but vanishes for
+  aligned base-first flight (alpha ~ 180 deg). With CP behind the
+  CG relative to the direction of travel this is statically restoring;
+  e.g. for base-first descent (v_rel_B ~ -x_B) CP *above* the CG
+  stabilizes, for nose-first ascent CP *below* the CG stabilizes.
 - Moment from normal force: M = (x_cp - x_cg) x_hat x F_normal_B.
 - Damping moments: M += q S L * c_damp * (omega L / (2V)) for pitch/yaw
   (cm_damping) and roll (cl_roll_damping).
@@ -86,12 +93,17 @@ def aero_forces_moments(
     e_rel = v_rel_B / V
     F_drag = -aero.cd(mach) * q_dyn * aero.ref_area * e_rel
 
-    # Normal force perpendicular to x_B in the plane of v_rel.
+    # Normal force perpendicular to x_B in the plane of v_rel, opposing the
+    # lateral component of the air-relative velocity (weathervane force).
+    # Magnitude scales with sin(alpha) -- equal to the classic Cn_alpha*alpha
+    # slender-body slope at small alpha, but correctly vanishing near
+    # alpha = 180 deg (aligned base-first descent), where the linear-in-alpha
+    # form would wrongly produce its largest force.
     e_n_plane = np.array([0.0, v_rel_B[1], v_rel_B[2]])
     n_norm = np.linalg.norm(e_n_plane)
     if n_norm > 1e-9:
         e_n_plane /= n_norm
-    F_normal = aero.cn_alpha * alpha * q_dyn * aero.ref_area * e_n_plane
+    F_normal = -aero.cn_alpha * np.sin(alpha) * q_dyn * aero.ref_area * e_n_plane
 
     F_B = F_drag + F_normal
 

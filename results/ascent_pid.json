@@ -1,0 +1,30 @@
+{
+  "controller": "pid",
+  "t_end": 519.9999999998171,
+  "final_alt_km": 371.30513894560664,
+  "final_speed_km_s": 6.35568666363801,
+  "final_downrange_km": 1396.8850307334214,
+  "apogee_est_final_km": 375.8474380501087,
+  "h_target_km": 200.0,
+  "reached_h_target": true,
+  "q_max_kPa": 33.314942879367116,
+  "t_maxq_s": 76.72000000000187,
+  "alpha_max_deg": 180.0,
+  "prop_remaining_kg": 0.0,
+  "active_stage": 1,
+  "fuel_used_kg": 400000.0,
+  "wall_time_s": 143.20770401501795,
+  "events": [
+    [
+      159.76000000000792,
+      "stage_sep"
+    ]
+  ],
+  "phases": [
+    "gravity_turn",
+    "pitch_kick",
+    "stage_sep_coast",
+    "tangent_steering",
+    "vertical"
+  ]
+}

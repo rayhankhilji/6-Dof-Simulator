@@ -1,0 +1,27 @@
+{
+  "t_end": 31.79000000000217,
+  "fuel_used_kg": 6636.751586395931,
+  "fallback_count": 1,
+  "vertical_speed": 1.6802679332800323,
+  "lateral_speed": 0.5345043683584819,
+  "tilt_angle_deg": 1.042825348900739,
+  "lateral_offset": 1.9807416121202128,
+  "success": true,
+  "failure_mode": "success",
+  "max_gimbal_deg": 8.0,
+  "control_effort": 0.06158487617704224,
+  "rms_lateral_offset": 186.7607633002974,
+  "compute_time_mean_ms": 3.6121650061488224,
+  "compute_time_max_ms": 97.09256899077445,
+  "guidance": "optimal",
+  "controller": "mpc",
+  "nav": "perfect",
+  "seed": 0,
+  "wall_time_s": 27.519557666004403,
+  "events": [
+    [
+      31.79000000000217,
+      "touchdown"
+    ]
+  ]
+}

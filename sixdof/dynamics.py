@@ -109,6 +109,8 @@ class RigidBodyDynamics:
         # Moments about the CG.
         r_gimbal = np.array([stage.gimbal_point + veh.config.stage_base(veh.active_stage) - cg_x, 0.0, 0.0])
         M_B = np.cross(r_gimbal, F_thrust_B) + M_aero_B
+        # RCS torque request (zero when absent).
+        M_B = M_B + np.asarray(u.get("rcs_torque_B", np.zeros(3)), dtype=float)
 
         xdot = np.zeros(14)
         xdot[IR] = s.v_I

@@ -87,15 +87,52 @@ class ThrottleActuator:
         return eff
 
 
+class RCSActuator:
+    """Reaction-control thrusters: first-order lag + per-axis saturation.
+
+    Default torque authority: 5 kN m roll (x_B), 40 kN m pitch/yaw.
+    """
+
+    def __init__(self, torque_max=(5e3, 4e4, 4e4), tau: float = 0.02) -> None:
+        self.torque_max = np.asarray(torque_max, dtype=float)
+        self.tau = float(tau)
+        self.torque = np.zeros(3)
+
+    def step(self, cmd: np.ndarray, dt: float) -> np.ndarray:
+        cmd = np.clip(np.asarray(cmd, dtype=float), -self.torque_max, self.torque_max)
+        a = 1.0 - np.exp(-dt / self.tau)
+        self.torque += a * (cmd - self.torque)
+        return self.torque.copy()
+
+
 @dataclass
 class ActuatorSuite:
-    """Gimbal + throttle bundle stepping a ``ControlCommand``."""
+    """Gimbal + throttle (+ optional RCS) bundle stepping a ``ControlCommand``.
+
+    ``control_noise_sigma`` adds Gaussian noise to the gimbal command [rad]
+    and the throttle command [fraction] each step (Monte Carlo dispersion).
+    """
 
     gimbal: GimbalActuator
     throttle: ThrottleActuator
+    rcs: Optional[RCSActuator] = None
+    control_noise_sigma: float = 0.0
+    rng: Optional[np.random.Generator] = None
 
     def step(self, cmd: ControlCommand, t: float, dt: float) -> dict:
-        """Return ``u`` dict for dynamics: {throttle, gimbal=(dy, dz)}."""
-        g = self.gimbal.step(np.array([cmd.gimbal_y, cmd.gimbal_z]), dt)
-        th = self.throttle.step(cmd.throttle, t, dt)
-        return {"throttle": th, "gimbal": (float(g[0]), float(g[1]))}
+        """Return ``u`` dict for dynamics: {throttle, gimbal=(dy, dz), rcs_torque_B}."""
+        gy, gz = cmd.gimbal_y, cmd.gimbal_z
+        th_cmd = cmd.throttle
+        if self.control_noise_sigma > 0.0 and self.rng is not None:
+            s = self.control_noise_sigma
+            gy += s * self.rng.standard_normal()
+            gz += s * self.rng.standard_normal()
+            th_cmd += s * self.rng.standard_normal()
+        g = self.gimbal.step(np.array([gy, gz]), dt)
+        th = self.throttle.step(th_cmd, t, dt)
+        u = {"throttle": th, "gimbal": (float(g[0]), float(g[1]))}
+        if self.rcs is not None:
+            u["rcs_torque_B"] = self.rcs.step(cmd.rcs_torque_B, dt)
+        else:
+            u["rcs_torque_B"] = np.asarray(cmd.rcs_torque_B, dtype=float)
+        return u

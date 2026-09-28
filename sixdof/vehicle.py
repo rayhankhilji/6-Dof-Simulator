@@ -314,13 +314,13 @@ class Vehicle:
 def falcon9_like_first_stage() -> StageConfig:
     """Approximate Falcon-9-like first stage / landing booster config.
 
-    Rough public numbers: ~25 t dry, ~30 t landing propellant reserve,
+    Rough public numbers: ~27 t dry, ~30 t landing propellant reserve,
     one Merlin-class engine 845 kN vac, Isp 311/282 s, 8 deg gimbal,
-    40% throttle floor, 41 m x 3.7 m.
+    35% throttle floor, 41 m x 3.7 m.
     """
     engine = EngineConfig(
         thrust_max_vac=845e3,
-        thrust_min_frac=0.4,
+        thrust_min_frac=0.35,
         isp_vac=311.0,
         isp_sl=282.0,
         nozzle_exit_area=1.6,
@@ -330,7 +330,7 @@ def falcon9_like_first_stage() -> StageConfig:
     )
     aero = AeroConfig(ref_area=np.pi * (3.7 / 2.0) ** 2)
     return StageConfig(
-        dry_mass=25_000.0,
+        dry_mass=27_000.0,
         prop_mass=30_000.0,
         length=41.0,
         diameter=3.7,
@@ -338,7 +338,10 @@ def falcon9_like_first_stage() -> StageConfig:
         cg_offset_from_base_dry=8.0,  # engine-heavy base section
         cg_offset_prop=10.0,
         gimbal_point=0.0,
-        cp_offset=15.0,  # grid fins near the top push CP forward of CG
+        # Descending base-first, the relative wind comes from below (the -x_B
+        # direction of travel). Static stability then requires the CP *above*
+        # the CG along +x_B (grid fins near the top act like dart feathers).
+        cp_offset=11.0,  # ~3 m above the typical descent CG (~8 m)
         aero=aero,
     )
 

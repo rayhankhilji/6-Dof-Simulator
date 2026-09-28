@@ -8,11 +8,28 @@ body to inertial: v_I = R(q) v_B.
 
 __version__ = "0.1.0"
 
-from .actuators import ActuatorSuite, GimbalActuator, ThrottleActuator
+from .actuators import ActuatorSuite, GimbalActuator, RCSActuator, ThrottleActuator
 from .control_types import ControlCommand, GuidanceCommand
 from .dynamics import RigidBodyDynamics, integrate_rk4, integrate_step, touchdown_check
 from .environment import USStandardAtmosphere1976, WindModel, gravity_inertial
+from .control import (
+    CONTROLLERS,
+    GeometricController,
+    LQRController,
+    LinearMPCController,
+    PIDAttitudeController,
+    make_controller,
+)
+from .guidance import (
+    GUIDANCE,
+    GravityTurnGuidance,
+    OptimalGuidance,
+    PolynomialGuidance,
+    ZEMZEVGuidance,
+    make_guidance,
+)
 from .navigation import EKF, UKF, Navigator, NavState
+from .scenarios import ascent_scenario, landing_scenario, landing_success
 from .sensors import Barometer, GPS, IMU, Measurements, RadarAltimeter, SensorSuite
 from .simulation import NullController, NullGuidance, PerfectNavigator, SimResult, Simulation
 from .state import IM, IQ, IR, IV, IW, STATE_SIZE, State, initial_state
@@ -31,6 +48,7 @@ __all__ = [
     "ActuatorSuite",
     "GimbalActuator",
     "ThrottleActuator",
+    "RCSActuator",
     "ControlCommand",
     "GuidanceCommand",
     "EKF",
@@ -48,6 +66,21 @@ __all__ = [
     "NullGuidance",
     "NullController",
     "PerfectNavigator",
+    "CONTROLLERS",
+    "make_controller",
+    "PIDAttitudeController",
+    "LQRController",
+    "GeometricController",
+    "LinearMPCController",
+    "GUIDANCE",
+    "make_guidance",
+    "GravityTurnGuidance",
+    "ZEMZEVGuidance",
+    "PolynomialGuidance",
+    "OptimalGuidance",
+    "landing_scenario",
+    "ascent_scenario",
+    "landing_success",
     "RigidBodyDynamics",
     "integrate_rk4",
     "integrate_step",
