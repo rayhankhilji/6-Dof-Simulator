@@ -111,6 +111,17 @@ FAILURE_MODES = [
 ]
 _MODE = {m: i for i, m in enumerate(FAILURE_MODES)}
 
+# Instance attributes holding the guidance constants consumed by
+# ``_control_update`` (set in ``BatchMonteCarlo.__init__``).  The
+# ``guidance_params`` constructor argument may override any of these.
+GUIDANCE_PARAM_KEYS = frozenset([
+    "h_terminal", "tilt_max", "tilt_cap", "tilt_cap_min", "h_cap_ref",
+    "t_go_scale", "vf_z", "vf_z_term", "aim_below",
+    "v_lat_max", "kv_lat", "tau_app_frac", "tau_app_lo", "tau_app_hi",
+    "fade_h_ref", "accel_clamp", "lat_filt_tau",
+    "ignite_margin", "ignite_decel_frac",
+])
+
 _XB = np.array([1.0, 0.0, 0.0])
 _ZH = np.array([0.0, 0.0, 1.0])
 
@@ -358,12 +369,18 @@ class BatchMonteCarlo:
         Only ``"zemzev"`` is implemented.
     t_end : float
         Timeout cap [s]; runs still airborne are recorded as 'timeout'.
+    guidance_params : dict | None
+        Optional overrides for the guidance constants consumed by
+        ``_control_update`` (keys restricted to ``GUIDANCE_PARAM_KEYS``;
+        values in SI units -- radians for angles).  Used by the Phase-5b
+        policy-parameter search.
     """
 
     def __init__(self, n: int = 100_000, dt: float = 0.02,
                  control_decimation: int = 1, seed: int = 0,
                  dispersion: DispersionConfig | None = None,
-                 guidance: str = "zemzev", t_end: float = 120.0) -> None:
+                 guidance: str = "zemzev", t_end: float = 120.0,
+                 guidance_params: dict | None = None) -> None:
         if guidance != "zemzev":
             raise NotImplementedError("batch engine implements 'zemzev' only")
         self.n = int(n)
@@ -406,18 +423,35 @@ class BatchMonteCarlo:
         self.k_r, self.k_w = 4.0, 2.5
         self.rcs_k_r, self.rcs_k_w = 3.0, 6.0
         # Guidance constants (mirror PoweredDescentBase / ZEMZEVGuidance).
-        self.h_terminal = 30.0
+        self.h_terminal = 30.0             # terminal-target z switch [m]
         self.tilt_max = np.radians(25.0)
         self.tilt_cap = np.radians(35.0)   # ZEMZEVGuidance(tilt_cap_deg=35)
         self.tilt_cap_min = np.radians(3.0)
         self.h_cap_ref = 150.0             # altitude taper for the tilt cap
         self.t_go_scale = 1.15             # brake margin (longer plan t_go)
+        self.vf_z = -3.0                   # v_z target above h_terminal [m/s]
+        self.vf_z_term = -1.5              # v_z target below h_terminal [m/s]
+        self.aim_below = 0.5               # terminal aim point below ground [m]
         # Bounded-approach-speed lateral servo (PoweredDescentBase._lateral_servo).
         self.v_lat_max = 25.0              # bounded approach speed [m/s]
         self.kv_lat = 0.45                 # lateral velocity-servo gain [1/s]
+        self.tau_app_frac = 0.35           # tau_app = clip(frac*t_go, lo, hi)
+        self.tau_app_lo = 4.0              # tau_app lower clip [s]
+        self.tau_app_hi = 12.0             # tau_app upper clip [s]
+        self.fade_h_ref = 100.0            # lateral fade ramps over 0..h_ref
+        self.accel_clamp = 0.95            # |a_cmd| <= accel_clamp * T_max/m
         self.lat_filt_tau = 1.5            # _filter_lateral low-pass tau [s]
         self.ignite_margin = 150.0
         self.ignite_decel_frac = 0.85
+        # Optional guidance-parameter overrides (Phase-5b policy search).
+        # Keys must name attributes in GUIDANCE_PARAM_KEYS; values are SI.
+        if guidance_params:
+            unknown = set(guidance_params) - GUIDANCE_PARAM_KEYS
+            if unknown:
+                raise KeyError(
+                    f"unknown guidance_params keys: {sorted(unknown)}")
+            for key, val in guidance_params.items():
+                setattr(self, key, float(val))
 
         self.atm = USStandardAtmosphere1976(1.0)  # per-run scale applied manually
         self.aero_cfg = aero
@@ -863,9 +897,9 @@ class BatchMonteCarlo:
             rs, vs = r_m[ip], v_m[ip]
             term = rs[:, 2] < self.h_terminal
             rf = np.zeros((ip.size, 3))
-            rf[:, 2] = np.where(term, -0.5, 0.0)
+            rf[:, 2] = np.where(term, -self.aim_below, 0.0)
             vf = np.zeros((ip.size, 3))
-            vf[:, 2] = np.where(term, -1.5, -3.0)
+            vf[:, 2] = np.where(term, self.vf_z_term, self.vf_z)
             gs = g_vec[ip]
             t_go = self._t_go(rs, vs, rf, vf) * self.t_go_scale
             T_z = np.maximum(t_go, 0.5)
@@ -882,8 +916,9 @@ class BatchMonteCarlo:
             # steady toward the pad -- the classic 6*ZEM/T^2 - 2*ZEV/T
             # lateral law demands ~180 deg azimuth slews the slow TVC
             # attitude loop cannot track.
-            tau_app = np.clip(0.35 * t_go, 4.0, 12.0)
-            fade = np.clip(rs[:, 2] / 100.0, 0.0, 1.0)
+            tau_app = np.clip(self.tau_app_frac * t_go,
+                              self.tau_app_lo, self.tau_app_hi)
+            fade = np.clip(rs[:, 2] / self.fade_h_ref, 0.0, 1.0)
             for k in (0, 1):
                 v_des = (np.clip((rf[:, k] - rs[:, k]) / tau_app,
                                  -self.v_lat_max, self.v_lat_max) * fade)
@@ -900,7 +935,7 @@ class BatchMonteCarlo:
                              cap / np.maximum(a_lat, 1e-9), 1.0)
             ac[:, 0] *= s_lat
             ac[:, 1] *= s_lat
-            amax = (0.95 * T_max[ip]
+            amax = (self.accel_clamp * T_max[ip]
                     / np.maximum(m[ip], 1e-9))
             am = _norm(ac)
             s_am = np.where(am > amax, amax / np.maximum(am, 1e-9), 1.0)

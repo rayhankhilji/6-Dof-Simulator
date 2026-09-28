@@ -2,6 +2,8 @@
 
 A full-stack, six-degree-of-freedom flight dynamics and GNC (guidance–navigation–control) research platform for a propulsively-landing reusable launch vehicle — written for, and evaluated under, the same kind of Monte Carlo discipline used in real launch-vehicle programs. Python + NumPy/SciPy, 68 tests, ~6.3 kLOC of simulation core, no black boxes.
 
+![GNC architecture](docs/figures/architecture.png)
+
 ```text
                  ┌──────────────────────────────┐
                  │           Vehicle            │
@@ -323,7 +325,23 @@ Task: *given the state at an altitude gate (1500/1000 m), predict P(landing succ
 
 ## 13. Policy search vs classical baseline
 
-<!-- CEM RESULTS PENDING -->
+Instead of replacing the GNC stack with a learned policy (the honest thing to do first is ask whether the classical stack's *parameters* are any good), we run **Cross-Entropy Method** search directly on the powered-descent guidance parameter vector $\theta\in\mathbb{R}^8$: $t_{go}$ scale, lateral-servo gain, approach-speed cap, tilt-cap high/low, ignition margin, accel clamp, lateral filter τ — optimized on the batch engine (pop 16, elite 5, 12 generations, σ-smoothing 0.3, $n_{eval}=1{,}000$ dispersed runs per candidate) against a fuel-shaping reward
+
+$$J(\theta) = \frac{1}{n}\sum_i \left[\mathbb{1}_{\text{success}} - w_{mode(i)}\cdot\mathbb{1}_{\neg\text{success}} - 0.3\,\frac{m_{\text{fuel,used}}}{10\,\text{t}}\right]$$
+
+then **evaluated once on 50,000 fresh seeds** (paired against the default $\theta_0$ on identical seeds — common random numbers).
+
+| $\theta$ | success | hard_landing | gps_outage | lat_vel | TD $\|v_z\|$ p50/p95 | fuel left (succ.) |
+|---|---|---|---|---|---|---|
+| baseline | 43.2% | 40.3% | 12.0% | 2.5% | 3.09 / 6.33 | 30.2% |
+| **CEM-learned** | **67.2%** | 23.7% | 7.3% | 0.07% | 2.42 / 5.13 | 29.7% |
+
+The learned schedule reads physically sensible: $t_{go}\times1.44$ (brake earlier, arrive with margin — directly attacks the hover-slam hard-landing mode), gentler lateral servo ($k_v$ 0.45→0.38, tighter terminal tilt cap 3°→1.4°), earlier-relaxed lateral low-pass (1.5→0.87 s), lower ignition margin (150→104 m), slightly deeper accel clamp. Net effect: **+24 pp success** at a cost of ~0.5 pp fuel — the search bought robustness by flying a more conservative descent clock. The lesson generalizes: this problem rewards *margin*, not optimality; tuning guidance schedule parameters on the true dispersed objective beats both hand-tuning and the per-state optimal planner on this dispersion envelope.
+
+![learning curve](docs/figures/policy_learning.png)
+![comparison](docs/figures/policy_comparison.png)
+
+A full RL policy (state → thrust/gimbal) is deliberately left as future work — the classical stack remains the baseline, and CEM-on-guidance-parameters is the honest intermediate: it keeps interpretability, stability structure, and constraint handling from the classical pipeline while learning in the space where the loss function actually lives.
 
 ## 14. Limitations & honesty notes
 
