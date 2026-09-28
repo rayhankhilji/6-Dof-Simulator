@@ -70,5 +70,5 @@ def test_actuator_suite():
         throttle=ThrottleActuator(0.1, 0.4, delay_s=0.0),
     )
     u = suite.step(ControlCommand(throttle=1.0, gimbal_y=0.01, gimbal_z=-0.01), 0.0, 0.005)
-    assert set(u.keys()) == {"throttle", "gimbal"}
+    assert set(u.keys()) == {"throttle", "gimbal", "rcs_torque_B"}
     assert len(u["gimbal"]) == 2
