@@ -285,6 +285,8 @@ class MCResult:
     failure_mode: np.ndarray          # (n,) int codes into FAILURE_MODES
     final_state: np.ndarray           # (n, 14)
     gate_positions: np.ndarray        # (n, 7, 3) interpolated at GATE_ALTITUDES
+    gate_states: np.ndarray           # (n, 7, 7) [r_I(3), v_I(3), m] at crossing
+    gate_times: np.ndarray            # (n, 7) gate-crossing time since t0 [s]
     gate_altitudes: np.ndarray        # (7,)
     # dispersion draws (factor analysis / reproducibility)
     wind_speed: np.ndarray
@@ -554,6 +556,8 @@ class BatchMonteCarlo:
         td_tilt = np.full(n, np.nan)
         td_off = np.full(n, np.nan)
         gates = np.full((n, len(GATE_ALTITUDES), 3), np.nan)
+        gate_states = np.full((n, len(GATE_ALTITUDES), 7), np.nan)
+        gate_times = np.full((n, len(GATE_ALTITUDES)), np.nan)
         prop_at_end = np.zeros(n)
 
         # precomputed update coefficients
@@ -574,6 +578,8 @@ class BatchMonteCarlo:
             if not active.any():
                 break
             r_prev = r.copy()
+            v_prev = v.copy()
+            m_prev = m.copy()
 
             # ---------------- environment processes ----------------
             h_w = np.clip(r[:, 2], 0.0, None)
@@ -722,6 +728,13 @@ class BatchMonteCarlo:
                 td_time[td] = t
                 prop_at_end[td] = np.clip(m[td] - dry[td], 0.0, None)
                 gates[td, -1, :] = r_td          # z = 0 gate
+                gate_states[td, -1, :3] = r_td
+                gate_states[td, -1, 3:6] = (v_prev[td]
+                                            + f[:, None]
+                                            * (v[td] - v_prev[td]))
+                gate_states[td, -1, 6] = (m_prev[td]
+                                          + f * (m[td] - m_prev[td]))
+                gate_times[td, -1] = t - dt + f * dt
             for gi, ga in enumerate(GATE_ALTITUDES[:-1]):
                 cross = active & (r_prev[:, 2] > ga) & (z_now <= ga)
                 if cross.any():
@@ -730,6 +743,13 @@ class BatchMonteCarlo:
                     gates[cross, gi, :] = (r_prev[cross]
                                            + f[:, None]
                                            * (r[cross] - r_prev[cross]))
+                    gate_states[cross, gi, :3] = gates[cross, gi, :]
+                    gate_states[cross, gi, 3:6] = (
+                        v_prev[cross]
+                        + f[:, None] * (v[cross] - v_prev[cross]))
+                    gate_states[cross, gi, 6] = (
+                        m_prev[cross] + f * (m[cross] - m_prev[cross]))
+                    gate_times[cross, gi] = t - dt + f * dt
             active &= ~td
             prop_at_end[active] = np.clip(m[active] - dry[active], 0.0, None)
 
@@ -777,6 +797,7 @@ class BatchMonteCarlo:
             fuel_remaining_frac=prop_at_end / np.maximum(prop0, 1.0),
             success=success, failure_mode=base,
             final_state=final_state, gate_positions=gates,
+            gate_states=gate_states, gate_times=gate_times,
             gate_altitudes=GATE_ALTITUDES.copy(),
             wind_speed=D["wind_speed"], wind_dir=D["wind_dir"],
             gust_sigma=D["gust_sigma"], mass_scale=D["mass_scale"],
